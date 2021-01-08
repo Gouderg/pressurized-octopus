@@ -41,7 +41,7 @@ USE octopus;
 # Table: table_plongee
 #------------------------------------------------------------
 
-CREATE TABLE table_plongee(
+CREATE TABLE Table_plongee(
         id  Int  Auto_increment  NOT NULL ,
         nom Varchar (50) NOT NULL
 	,CONSTRAINT table_plongee_PK PRIMARY KEY (id)
