@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% set page_title = 'Table plongée' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/table_plongee.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="wrapper"> 
+        <table>
+            <thead>
+                <tr> 
+                    <th> ID </th>
+                    <th> Nom </th>
+                </tr>
+                
+            </thead>
+
+            <tbody>
+                {% for table in tablePlongee %}
+                    <tr>
+                        <td>{{ table.id }}</td>
+                        <td>{{ table.nom }}</td>
+                    <tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
