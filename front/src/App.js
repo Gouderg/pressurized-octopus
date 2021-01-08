@@ -8,6 +8,7 @@ import {
 import logo from './img/logo.png'
 
 function App() {
+
 	return (
 		<Router>
 			<div className="App">
@@ -15,8 +16,8 @@ function App() {
 					<img src={logo} className="App-logo" alt="logo" />
 					<h2>Pressurized Octopus</h2>
 					<nav>
-						<ul>
-							<li><Link to="/">Home</Link></li>
+						<ul> 
+							{/*<li><Link to="/">Home</Link></li>*/}
 							<li><Link to="/">Table</Link></li>
 							<li><Link to="/">Calcul</Link></li>
 						</ul>
