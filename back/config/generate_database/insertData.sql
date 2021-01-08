@@ -3,11 +3,11 @@ USE octopus;
 
 
 #table_plongee (nom)
-INSERT INTO table_plongee (nom) VALUES ("Bullman"),
+INSERT INTO tableplongee (nom) VALUES ("Bullman"),
 ("MN90");
 
 #Profondeur (profondeur,id_table_plongee)
-INSERT INTO Profondeur (profondeur,id_table_plongee) VALUES (12,1),
+INSERT INTO profondeur (profondeur,correspond_id) VALUES (12,1),
 (15,1),
 (18,1),
 (21,1),
@@ -48,7 +48,7 @@ INSERT INTO Profondeur (profondeur,id_table_plongee) VALUES (12,1),
 (60,2);
 
 #Temps (id_Profondeur,temps,palier15,palier12,palier9,palier6,palier3)
-INSERT INTO Temps (id_Profondeur,temps,palier15,palier12,palier9,palier6,palier3) VALUES (1,125,0,0,0,0,1),
+INSERT INTO temps (est_a_id,temps,palier15,palier12,palier9,palier6,palier3) VALUES (1,125,0,0,0,0,1),
 (2,75,0,0,0,0,1),
 (2,90,0,0,0,0,7),
 (3,51,0,0,0,0,1),
