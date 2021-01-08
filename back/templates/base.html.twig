@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% if page_title is defined %} {{ page_title }} | {% endif %} Pressurized Octopus</title>
+
+        {% block stylesheets %}
+            <link href="{{ asset('assets/css/header.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('assets/css/footer.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
+    
     </head>
     <body>
+        {% include 'common/header.html.twig' %}
+        
         {% block body %}{% endblock %}
+        {% include 'common/footer.html.twig' %}
+        
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>
