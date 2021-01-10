@@ -43,6 +43,37 @@ class ApiController extends AbstractController
         //$response = 
 
 	}
+	/**
+     * @Route("/profondeur/show/{id}", name="show_profondeur")
+     */
+    public function showCours($id)
+    {
+       
+        $profondeur = $this->getDoctrine()
+            ->getRepository(Profondeur::class)
+            ->findApiId($id);
+
+        if (!$profondeur) {
+            $data = [
+                'status' => 404,
+                'errors' => "Post not found",
+               ];
+            return new JsonResponse($data);
+        }
+
+        //return new JsonResponse($cours);
+        $response = new Response();
+        
+        $response->setContent(json_encode($profondeur));
+		$response->headers->set('Content-Type', 'application/json');
+		$response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+        
+    }
+
+	/**
+     * @Route("/tables", name="tables")
+     */
 
 	public function listTable()
 	{
@@ -65,6 +96,9 @@ class ApiController extends AbstractController
         //$response = 
 
 	}
+	/**
+     * @Route("/temps", name="temps")
+     */
 
 	public function listTemps()
 	{
@@ -81,6 +115,33 @@ class ApiController extends AbstractController
         $response = new Response();
         
         $response->setContent(json_encode($tmp));
+		$response->headers->set('Content-Type', 'application/json');
+		$response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+        //$response = 
+
+	}
+
+	/**
+     * @Route("/tables/show/{id}", name="show_choix")
+     */
+
+	public function choix($id)
+	{
+		$tb =$this->getDoctrine()
+                    ->getRepository(Tableplongee::class)
+                    ->findTables($id);
+        
+    /*
+
+        return $this->render('api/index.html.twig', [
+            'controller_name' => 'ApiController',
+        ]);
+        */
+        //return new JsonResponse($profondeurs);
+        $response = new Response();
+        
+        $response->setContent(json_encode($tb));
 		$response->headers->set('Content-Type', 'application/json');
 		$response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
