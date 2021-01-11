@@ -1,10 +1,42 @@
-html, body {
-    height: 100%;
-    margin: 0;
+table, th, td {
+    border: 1px solid black;
 }
 
-.wrapper {
-    min-height: 100%;
-    margin-top: 75px;
-    padding: 20px;
+table {
+    border-collapse: collapse;
+}
+
+td {
+    padding:20px;
+}
+
+.btn {
+    background-color: rgb(11, 126, 192);
+    color: white;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    border: 2px solid rgb(11, 126, 192); 
+    border-radius: 10px;
+    opacity: 60%;
+}
+  
+.btn:hover {
+    background-color: #555;
+    border: 2px solid #555; 
+}
+  
+.btn:active {
+    background-color: black;
+    border: 2px solid black; 
+
+}
+
+.create-part {
+    display: inline;
+    padding-top: 50%;
+}
+
+.create-title {
+    font-size: 45;
+    font-weight: bold;
 }

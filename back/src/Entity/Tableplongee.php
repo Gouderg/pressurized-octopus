@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TableplongeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TableplongeeRepository::class)
@@ -19,6 +20,13 @@ class Tableplongee
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank
+     * @Assert\Length (
+     *      min = 1,
+     *      max = 50,
+     *      minMessage = "Le nom doit contenir au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom doit contenir moins de {{ limit }} caractères"
+     * )  
      */
     private $nom;
 

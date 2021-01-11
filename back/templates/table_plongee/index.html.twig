@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% set page_title = 'Table plongée' %}
+{% set page_title = 'Tables plongée' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -8,25 +8,41 @@
 {% endblock %}
 
 {% block body %}
-    <div class="wrapper"> 
-        <table>
-            <thead>
-                <tr> 
-                    <th> ID </th>
-                    <th> Nom </th>
-                </tr>
-                
-            </thead>
-
-            <tbody>
-                {% for table in tablePlongee %}
-                    <tr>
-                        <td>{{ table.id }}</td>
-                        <td>{{ table.nom }}</td>
-                    <tr>
+    <div class="main">
+        <div class="table-part">
+            <table>
+                <thead>
+                    <tr> 
+                        <th> ID </th>
+                        <th> Nom </th>
+                    </tr>
                     
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                    {% for table in tablePlongee %}
+                        <tr>
+                            <td>{{ table.id }}</td>
+                            <td>{{ table.nom }}</td>
+                            <td><a class="btn" href="{{ path('table_edit', {id: table.id} ) }}"> ✏️ </a></td>
+                            <td><a class="btn" href="{{ path('table_delete', {id: table.id} ) }}"> 🗑️ </a></td>  
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div> 
+        
+        <div class="create-part">
+            {{ form_start(table_form)}}
+            <form method="POST">
+                <span class="create-title"> Nom: </span>
+                    {{ form_widget(table_form.nom) }}
+                    {{ form_errors(table_form.nom) }}
+                    {{ form_widget(table_form.btnCreate) }}
+            
+                {{ form_rest(table_form)}}
+            </form>
+            {{ form_end(table_form)}}
+        </div>
     </div>
 {% endblock %}
