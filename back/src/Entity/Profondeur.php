@@ -24,7 +24,6 @@ class Profondeur
 
     /**
      * @ORM\ManyToOne(targetEntity=Tableplongee::class)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $correspond;
 

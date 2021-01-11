@@ -30,19 +30,8 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <a class="btn" href="{{ path('table_create') }}"> Ajouter une table de plongée </a>
         </div> 
-        
-        <div class="create-part">
-            {{ form_start(table_form)}}
-            <form method="POST">
-                <span class="create-title"> Nom: </span>
-                    {{ form_widget(table_form.nom) }}
-                    {{ form_errors(table_form.nom) }}
-                    {{ form_widget(table_form.btnCreate) }}
-            
-                {{ form_rest(table_form)}}
-            </form>
-            {{ form_end(table_form)}}
-        </div>
     </div>
 {% endblock %}

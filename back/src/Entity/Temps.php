@@ -49,7 +49,6 @@ class Temps
 
     /**
      * @ORM\ManyToOne(targetEntity=Profondeur::class)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $est_a;
 
