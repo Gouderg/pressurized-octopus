@@ -3,9 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\Tableplongee;
+use App\Entity\Temps;
+use App\Entity\Profondeur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\EntityManager;
+// use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Tableplongee|null find($id, $lockMode = null, $lockVersion = null)
@@ -27,19 +31,20 @@ class TableplongeeRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findTables($value)
+    public function findTables($id)
     {
+
         $entityManager = $this->getEntityManager();
 
-        $query = $entityManager->createQuery(
-            'SELECT profondeur.profondeur, temps.temps, temps.palier15, temps.palier9, temps.palier12, temps.palier6, temps.palier3 
-            FROM App\Entity\Temps temps 
-            JOIN App\Entity\Profondeur profondeur  
-            ON temps.est_a = profondeur.id 
-            WHERE profondeur.correspond_id=:id;'
-        )->setParameter('id', $value);
+        $query = $entityManager->createQueryBuilder();
+        $query->select('p.profondeur, t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
+        ->from('App\Entity\Profondeur', 'p')
+        ->join('App\Entity\Temps', 't','WITH','t.est_a = p.id')
+        ->where('p.correspond = :id')
+        ->setParameter('id', $id);
 
-        return $query->getResult(Query::HYDRATE_ARRAY);
+        // returns an array of Product objects
+        return $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
     }
 

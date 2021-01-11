@@ -10,6 +10,7 @@ use App\Entity\Tableplongee;
 use App\Entity\Temps;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 /**
@@ -131,6 +132,16 @@ class ApiController extends AbstractController
 		$tb =$this->getDoctrine()
                     ->getRepository(Tableplongee::class)
                     ->findTables($id);
+
+        if ($id ==0 || $id >2 ) {
+            $data = [
+                'status' => 404,
+                'errors' => "Wrong numb for table use 1 or 2 only ( 1: Bulhman, 2:MN90) ",
+               ];
+            return new JsonResponse($data);
+        }
+
+
         
     /*
 

@@ -56,7 +56,7 @@ class ProfondeurRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findTables($value)
+    public function findTables($id)
     {
         $entityManager = $this->getEntityManager();
 
@@ -64,7 +64,7 @@ class ProfondeurRepository extends ServiceEntityRepository
             'SELECT profondeur.profondeur, temps.temps, temps.palier15, temps.palier9, temps.palier12, temps.palier6, temps.palier,
             FROM profondeur,temps
             WHERE correspond_id = :id'
-        )->setParameter('id', $value);
+        )->setParameter('id', $id);
 
         return $query->getResult(Query::HYDRATE_ARRAY);
 
