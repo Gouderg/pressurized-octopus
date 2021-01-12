@@ -14,8 +14,17 @@ class TablePlongeeFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('btnCreate', SubmitType::class, ['label' => 'Create'])
+            ->add('nom', TextType::class, [
+                'attr' => [
+                    'required' => True,    
+                ],
+            ])
+            ->add('btnCreate', SubmitType::class, [
+                'label' => 'Create',
+                'attr' => [
+                    'class' => 'btn-create',
+                    ],
+                ])
 
         ;
     }

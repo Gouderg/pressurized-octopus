@@ -115,7 +115,7 @@ class TablePlongeeController extends AbstractController
             return $this->redirectToRoute('table_show');
         }
 
-        return $this->render('table_plongee/edit.html.twig', [
+        return $this->render('table_plongee/create.html.twig', [
             'table_form' => $form->createView(),
         ]);
 
