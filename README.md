@@ -11,6 +11,3 @@ Enfin, il faut retourner dans la console mysql et taper la commande ``` source i
 
 ## Correction mineur en css à faire
 
-CRUD: 
-Supprimer la barre sur le côté s'il n'y a pas besoin
-Enlever la barre blanche sous le footer

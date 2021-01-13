@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('assets/css/table_plongee.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('assets/css/crud.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
@@ -25,7 +25,7 @@
                     {% else %}
                         <div class="table-row pair">
                     {% endif %}
-                            <div class="table-data">{{ table.id }}</div>
+                            <div class="table-data id">{{ table.id }}</div>
                             <div class="table-data">{{ table.nom }}</div>
                             <div class="table-data"><a href="{{ path('table_edit', {id: table.id} ) }}"> ✏️ </a></div>
                             <div class="table-data"><a href="{{ path('table_delete', {id: table.id} ) }}"> 🗑️ </a></div>

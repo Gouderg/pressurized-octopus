@@ -54,7 +54,7 @@ class ProfondeurRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('p');
         $query->select('t.id')
-              ->join('App\Entity\Temps', 't', 'WITH', 't.est_a = p.id ')
+              ->join('App\Entity\Temps', 't', 'WITH', 't.estA = p.id ')
               ->where('p.id = :id')
               ->setParameter('id', $id);
         

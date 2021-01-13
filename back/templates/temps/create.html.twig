@@ -1,0 +1,69 @@
+{% extends "base.html.twig" %}
+
+{% set page_title = 'Temps Create' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/crud.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+            {{ form_start(temps_form)}}
+            <form method="POST">
+                    <div class="group">
+                        {{ form_widget(temps_form.temps) }}
+                        {{ form_errors(temps_form.temps) }}
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Temps:</label>
+                    </div>
+
+                    <div class="group">
+                        {{ form_widget(temps_form.palier15) }}
+                        {{ form_errors(temps_form.palier15) }}
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Palier 15:</label>
+                    </div>
+                    <div class="group">
+                        {{ form_widget(temps_form.palier12) }}
+                        {{ form_errors(temps_form.palier12) }}
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Palier 12:</label>
+                    </div>
+                    <div class="group">
+                        {{ form_widget(temps_form.palier9) }}
+                        {{ form_errors(temps_form.palier9) }}
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Palier 9:</label>
+                    </div>
+                    <div class="group">
+                        {{ form_widget(temps_form.palier6) }}
+                        {{ form_errors(temps_form.palier6) }}
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Palier 6:</label>
+                    </div>
+                    <div class="group">
+                        {{ form_widget(temps_form.palier3) }}
+                        {{ form_errors(temps_form.palier3) }}
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Palier 3:</label>
+                    </div>
+
+                    <div class="group">
+                        {{ form_widget(temps_form.estA) }}
+                        {{ form_errors(temps_form.estA) }}
+                    </div>
+                    {{ form_widget(temps_form.btnCreate) }}
+
+                {{ form_rest(temps_form)}}
+            </form>
+            {{ form_end(temps_form)}}
+        </div>
+    </div>
+{% endblock %}

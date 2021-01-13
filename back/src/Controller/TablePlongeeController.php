@@ -23,7 +23,7 @@ class TablePlongeeController extends AbstractController
     /**
      * @Route("/show", name="show")
      */
-    public function show(Request $request): Response
+    public function show(): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -31,7 +31,6 @@ class TablePlongeeController extends AbstractController
     		->getRepository(Tableplongee::class)
             ->findAll();
         
-
         return $this->render('table_plongee/index.html.twig', [
             'tablePlongee' => $tablePlongee,
         ]);
@@ -41,7 +40,7 @@ class TablePlongeeController extends AbstractController
      * @Route("/delete/{id}", name="delete")
      */
 
-    public function delete(Tableplongee $table) 
+    public function delete(Tableplongee $table): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         
@@ -90,14 +89,9 @@ class TablePlongeeController extends AbstractController
      *  @Route("/edit/{id}", name="edit")
      */
 
-     public function edit($id, Request $request)
+     public function edit($id, Request $request): Response
      {
-        // if (!$table) {
-        //     throw $this->createNotFoundException(
-        //         'No table found'
-        //     );
-        // }
-        
+          
         $tableOnePlongee = $this->getDoctrine()
     		->getRepository(Tableplongee::class)
             ->find($id);
@@ -125,7 +119,7 @@ class TablePlongeeController extends AbstractController
       *  @Route("/create", name="create")
       */
 
-      public function create(Request $request)
+      public function create(Request $request): Response
       {
         $form = $this->createForm(TablePlongeeFormType::class);
         $form->handleRequest($request);

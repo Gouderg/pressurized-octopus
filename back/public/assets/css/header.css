@@ -1,8 +1,10 @@
 html, body {
+    font-family: sans-serif;
     height: 100%;
     margin: 0;
-    background: linear-gradient(45deg, #24445c, #1d4851, #22427c, #425b8a, #5a5e6b);
-	background-size: 400% 400%;
+    background: linear-gradient(-45deg, #1b9db4, #1d4851, #22427c, #425b8a, #FFFFFF);
+    background-size: 400% 4000%;
+    background-repeat: repeat-y;
 	animation: gradient 20s ease infinite;
 }
 
@@ -18,13 +20,15 @@ html, body {
     }
 }
 
+
+
 ul {
     list-style-type: none;
     background-color:rgba(0,0,0,0);
     margin: 0;
     padding: 0;
     overflow: hidden;
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100%;
 }
