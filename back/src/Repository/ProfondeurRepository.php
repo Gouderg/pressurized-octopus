@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Profondeur;
+use App\Entity\Temps;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,4 +48,17 @@ class ProfondeurRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    // SELECT t.id FROM temps t JOIN profondeur p ON p.id = t.est_a_id WHERE t.id = 1;
+    public function findIdTemps($id)
+    {
+        $query = $this->createQueryBuilder('p');
+        $query->select('t.id')
+              ->join('App\Entity\Temps', 't', 'WITH', 't.estA = p.id ')
+              ->where('p.id = :id')
+              ->setParameter('id', $id);
+        
+        return $query->getQuery()->getResult();    
+
+    }
 }

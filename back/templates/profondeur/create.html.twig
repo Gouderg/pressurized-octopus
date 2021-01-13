@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% set page_title = 'Profondeur Create' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/crud.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+            {{ form_start(prof_form)}}
+            <form method="POST">
+                    <div class="group">
+                        {{ form_widget(prof_form.profondeur) }}
+                        {{ form_errors(prof_form.profondeur) }}
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Profondeur:</label>
+                    </div>
+
+                    <div class="group">
+                        {{ form_widget(prof_form.correspond) }}
+                        {{ form_errors(prof_form.correspond) }}
+                    </div>
+                    {{ form_widget(prof_form.btnCreate) }}
+
+                {{ form_rest(prof_form)}}
+            </form>
+            {{ form_end(prof_form)}}
+        </div>
+    </div>
+{% endblock %}

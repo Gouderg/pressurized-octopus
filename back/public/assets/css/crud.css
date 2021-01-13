@@ -1,0 +1,171 @@
+.body{
+    padding: 24px;
+}
+
+.main {
+	max-width: 1100px;
+	margin-right:auto;
+	margin-left:auto;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	min-height: 45vh;
+}
+
+.table {
+  width:100%;
+}
+
+.table-header {
+	display:flex;
+	width:100%;
+	background:#1b1e23;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+}
+
+.table-row {
+	display:flex;
+	width:100%;
+  background: white;
+}
+
+.pair {
+    background:#EEEEEE;
+}
+
+.table-data, .table-head-title {
+	flex: 1 1 20%;
+  text-align:center;
+  padding: 12px;
+}
+
+.table-head-title {
+    text-transform:uppercase;
+    color:white;
+	position:relative;
+	display:inline-block;
+	padding-left:24px;
+	padding-right:24px;
+}
+
+.button-create {
+    margin-top: 25px;
+    padding: 10px;
+    width: min-content;
+    border: 1px solid #1b1e23;
+    border-radius: 3px;
+    background-color: #1b1e23;
+}
+
+.btn {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+
+}
+
+.group 			  { 
+    position:relative; 
+    margin-bottom:45px; 
+  }
+  input 				{
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:300px;
+    border:none;
+    border-bottom:1px solid #757575;
+  }
+  input:focus 		{ outline:none; }
+  
+  /* LABEL ======================================= */
+  label 				 {
+    color:#999; 
+    font-size:18px;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:5px;
+    top:10px;
+    transition:0.2s ease all;
+  }
+  
+  /* active state */
+  input:focus ~ label, input:valid ~ label 		{
+    top:-20px;
+    font-size:14px;
+    color:#5264AE;
+  }
+  
+  /* BOTTOM BARS ================================= */
+  .bar 	{ position:relative; display:block; width:315px; }
+  .bar:before, .bar:after 	{
+    content:'';
+    height:2px; 
+    width:0;
+    bottom:1px; 
+    position:absolute;
+    background:#dbbba3; 
+    transition:0.2s ease all;
+  }
+  .bar:before {
+    left:50%;
+  }
+  .bar:after {
+    right:50%; 
+  }
+  
+  /* active state */
+  input:focus ~ .bar:before, input:focus ~ .bar:after {
+    width:50%;
+  }
+  
+  /* HIGHLIGHTER ================================== */
+  .highlight {
+    position:absolute;
+    height:60%; 
+    width:100px; 
+    top:25%; 
+    left:0;
+    pointer-events:none;
+    opacity:0.5;
+  }
+  
+  /* active state */
+  input:focus ~ .highlight {
+    animation:inputHighlighter 0.3s ease;
+  }
+
+@keyframes inputHighlighter {
+    from { background:#dbbba3; }
+    to 	{ width:0; background:transparent; }
+}
+
+.btn-create {
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    font-weight:300;
+    color:black;
+    text-align:center;
+    transition: all 0.2s;
+}
+.btn-create:hover{
+    color:#000000;
+    background-color:#FFFFFF;
+}
+
+.id {
+  font-weight: bold;
+}
+/* @media all and (max-width:30em){
+    .btn-create{
+        display:block;
+        margin:0.4em auto;
+    }
+} */

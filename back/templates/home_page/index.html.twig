@@ -8,9 +8,21 @@
 {% endblock %}
 
 {% block body %}
-    <div class="wrapper"> 
-        <div class="wrapper-inside">
-            ALED
+    <div class="main"> 
+        <div class="homepage">
+            <h3> Bienvenue dans l'antre secret, vous pouvez modifier, ajouter ou supprimer à votre guise </h3>
+
+            <div class="homepage-grid">
+                <a href="{{ path('table_show') }}" class="homepage-grid-part">
+                    <h4>Tables de plongée</h4>
+                </a>
+                <a href="{{ path('profondeur_show') }}" class="homepage-grid-part">
+                    <h4>Profondeur</h4>
+                </a>
+                <a href="{{ path('temps_show') }}" class="homepage-grid-part">
+                    <h4>Temps</h4>
+                </a>
+            </div>
         </div>
     </div>
 {% endblock %}

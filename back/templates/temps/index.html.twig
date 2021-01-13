@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+{% set page_title = 'Temps' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/crud.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="main"> 
+        <div class="table">
+            <div class="table-header">
+                <div class="table-head-title">ID</div>
+                <div class="table-head-title">Temps</div>
+                <div class="table-head-title">Est à</div>
+                <div class="table-head-title">Palier 15</div>
+                <div class="table-head-title">Palier 12</div>
+                <div class="table-head-title">Palier 9</div>
+                <div class="table-head-title">Palier 6</div>
+                <div class="table-head-title">Palier 3</div>
+                <div class="table-head-title">Edit</div>
+                <div class="table-head-title">Delete</div>
+            </div>
+
+            <div class="table-content">
+                {% for temp in temps %}
+                    {% if temp.id % 2 %}
+                        <div class="table-row">
+                    {% else %}
+                        <div class="table-row pair">
+                    {% endif %}
+                            <div class="table-data id">{{ temp.id }}</div>
+                            <div class="table-data">{{ temp.temps }} min</div>
+                            <div class="table-data">{{ temp.estA.profondeur }}m</div>
+                            <div class="table-data">{{ temp.palier15 }}m</div>
+                            <div class="table-data">{{ temp.palier12 }}m</div>
+                            <div class="table-data">{{ temp.palier9 }}m</div>
+                            <div class="table-data">{{ temp.palier6 }}m</div>
+                            <div class="table-data">{{ temp.palier3 }}m</div>
+                            <div class="table-data"><a href="{{ path('temps_edit', {id: temp.id} ) }}"> ✏️ </a></div>
+                            <div class="table-data"><a href="{{ path('temps_delete', {id: temp.id} ) }}"> 🗑️ </a></div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="button-create">
+                <a class="btn" href="{{ path('temps_create') }}"> Add </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

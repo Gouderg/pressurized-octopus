@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% set page_title = 'Profondeur' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/crud.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="main"> 
+        <div class="table">
+            <div class="table-header">
+                <div class="table-head-title">ID</div>
+                <div class="table-head-title">Profondeur</div>
+                <div class="table-head-title">Correspond à</div>
+                <div class="table-head-title">Edit</div>
+                <div class="table-head-title">Delete</div>
+            </div>
+
+            <div class="table-content">
+                {% for prof in profondeurs %}
+
+                    {% if prof.id % 2 %}
+                        <div class="table-row">
+                    {% else %}
+                        <div class="table-row pair">
+                    {% endif %}
+                            <div class="table-data id">{{ prof.id }}</div>
+                            <div class="table-data">{{ prof.profondeur }}</div>
+                            <div class="table-data">{{ prof.correspond.nom }}</div>
+                            <div class="table-data"><a href="{{ path('profondeur_edit', {id: prof.id} ) }}"> ✏️ </a></div>
+                            <div class="table-data"><a href="{{ path('profondeur_delete', {id: prof.id} ) }}"> 🗑️ </a></div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="button-create">
+                <a class="btn" href="{{ path('profondeur_create') }}"> Add </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% set page_title = 'Tables plongée' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/crud.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div class="table">
+            <div class="table-header">
+                <div class="table-head-title">ID</div>
+                <div class="table-head-title">Nom</div>
+                <div class="table-head-title">Edit</div>
+                <div class="table-head-title">Delete</div>
+            </div>
+
+            <div class="table-content">
+                {% for table in tablePlongee %}
+
+                    {% if table.id % 2 %}
+                        <div class="table-row">
+                    {% else %}
+                        <div class="table-row pair">
+                    {% endif %}
+                            <div class="table-data id">{{ table.id }}</div>
+                            <div class="table-data">{{ table.nom }}</div>
+                            <div class="table-data"><a href="{{ path('table_edit', {id: table.id} ) }}"> ✏️ </a></div>
+                            <div class="table-data"><a href="{{ path('table_delete', {id: table.id} ) }}"> 🗑️ </a></div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="button-create">
+                <a class="btn" href="{{ path('table_create') }}"> Add </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

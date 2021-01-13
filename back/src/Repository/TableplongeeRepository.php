@@ -6,6 +6,8 @@ use App\Entity\Tableplongee;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+use App\Entity\Profondeur;
+
 /**
  * @method Tableplongee|null find($id, $lockMode = null, $lockVersion = null)
  * @method Tableplongee|null findOneBy(array $criteria, array $orderBy = null)
@@ -47,4 +49,15 @@ class TableplongeeRepository extends ServiceEntityRepository
         ;
     }
     */
+    // SELECT p.id FROM profondeur p JOIN tableplongee tp ON tp.id = p.correspond_id WHERE tp.id = 1;
+    // SELECT p.id FROM tableplongee tp JOIN profondeur p ON p.correspond_id = tp.id WHERE tp.id = 1;
+    public function findIdProfondeur($id) {
+        $query = $this->createQueryBuilder('tp');
+        $query->select('p.id')
+              ->join('App\Entity\Profondeur', 'p', 'WITH', 'p.correspond = tp.id ')
+              ->where('tp.id = :id')
+              ->setParameter('id', $id);
+        
+        return $query->getQuery()->getResult();    
+    }
 }

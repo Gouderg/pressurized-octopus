@@ -1,15 +1,11 @@
 footer {
-    height: 50px;
     width: 100%; 
-    background-color: rgb(11, 126, 192);
-    /* display: flex; */
+    background-color: rgba(0,0,0,0);
 }
 
 .footer-citation {
     padding: 20px;
     display: block;
     text-align: center;
-    font-family: 'Courier New', Courier, monospace;
     color: white;
 }
-

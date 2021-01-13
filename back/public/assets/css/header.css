@@ -1,10 +1,34 @@
+html, body {
+    font-family: sans-serif;
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(-45deg, #1b9db4, #1d4851, #22427c, #425b8a, #FFFFFF);
+    background-size: 400% 4000%;
+    background-repeat: repeat-y;
+	animation: gradient 20s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
 ul {
     list-style-type: none;
-    background-color: rgb(11, 126, 192);
+    background-color:rgba(0,0,0,0);
     margin: 0;
     padding: 0;
     overflow: hidden;
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100%;
 }
@@ -13,28 +37,36 @@ li {
     float: right;
 }
 
-li h4 {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding-left: 14px;
-    text-decoration: none;
-}
-
 li a {
     display: block;
     color: white;
     text-align: center;
-    padding-top: 20px;
-    padding-right: 16px;
+    padding: 20px;
     text-decoration: none;
 }
 
-li a:hover {
+.header-title {
+    float: left;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.header-title a:hover {
+    color: white;   
+}
+
+.header-options a:hover {
     color: #111;
 }
 
 .active {
     background-color: #4CAF50;
 }
+
+.main {
+    min-height: 100%;
+    margin: 7%;
+}
+
+
+
