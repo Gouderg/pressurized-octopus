@@ -48,6 +48,49 @@ class TableplongeeRepository extends ServiceEntityRepository
 
     }
 
+    public function findTime($duree_pg,$profondeur, $tables)
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQueryBuilder();
+        $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
+        ->from('App\Entity\Temps', 't')
+        ->join('App\Entity\Profondeur', 'p','WITH','t.est_a = p.id')
+        ->where('t.temps >= :temps AND p.profondeur = :prof AND p.correspond = :id')
+        ->setMaxResults(1)
+        ->setParameter('temps', $duree_pg)
+        ->setParameter('prof', $profondeur)
+        ->setParameter('id', $tables);
+
+        // returns an array of Product objects
+        return $query->getQuery()->getResult();   
+    }
+
+
+    public function findTime_error($duree_pg,$profondeur, $tables)
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQueryBuilder();
+        $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
+        ->from('App\Entity\Temps', 't')
+        ->join('App\Entity\Profondeur', 'p','WITH','t.est_a = p.id')
+        ->where('t.temps <= :temps AND p.profondeur = :prof AND p.correspond = :id')
+        ->orderBy('t.temps' ,'desc')
+        ->setMaxResults(1)
+        ->setParameter('temps', $duree_pg)
+        ->setParameter('prof', $profondeur)
+        ->setParameter('id', $tables);
+
+
+
+
+        // returns an array of Product objects
+        return $query->getQuery()->getResult();   
+    }
+
 
 
 
