@@ -6,6 +6,7 @@ use App\Entity\Profondeur;
 use App\Entity\Temps;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @method Profondeur|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,35 +20,23 @@ class ProfondeurRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Profondeur::class);
     }
-
-    // /**
-    //  * @return Profondeur[] Returns an array of Profondeur objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findApiAll()
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('c')
             ->getQuery()
-            ->getResult()
+            ->getResult(Query::HYDRATE_ARRAY)
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Profondeur
+    public function findApiId ($value): ?Profondeur
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->andWhere('p.id = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 
     // SELECT t.id FROM temps t JOIN profondeur p ON p.id = t.est_a_id WHERE t.id = 1;
     public function findIdTemps($id)
@@ -61,4 +50,64 @@ class ProfondeurRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();    
 
     }
+
+    public function dbRequestNextSupProf($table, $profondeur)
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQueryBuilder();
+        $query->select('p.profondeur')
+        ->from('App\Entity\Profondeur', 'p')
+        ->where('p.profondeur >= :prof AND p.correspond = :id')
+        ->setMaxResults(1)
+        ->setParameter('prof', $profondeur)
+        ->setParameter('id', $table);
+
+        // returns an array of Product objects
+        return $query->getQuery()->getResult();   
+    }
+
+    public function dbRequestLastProf($table)
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQueryBuilder();
+        $query->select('p.profondeur')
+        ->from('App\Entity\Profondeur', 'p')
+        ->where('p.correspond = :id')
+        ->orderBy('p.profondeur' ,'desc')
+        ->setMaxResults(1)
+        ->setParameter('id', $table);
+
+        // returns an array of Product objects
+        return $query->getQuery()->getResult();   
+    }
+
+    public function dbRequestBeforeProf($table, $profondeur)
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQueryBuilder();
+        $query->select('p.profondeur')
+        ->from('App\Entity\Profondeur', 'p')
+        ->where('p.correspond = :id AND p.profondeur < :prof')
+        ->orderBy('p.profondeur' ,'desc')
+        ->setMaxResults(1)
+        ->setParameter('id', $table)
+        ->setParameter('prof', $profondeur);
+
+        // returns an array of Product objects
+        return $query->getQuery()->getResult();   
+    }
 }
+
+
+
+
+
+
+
+
