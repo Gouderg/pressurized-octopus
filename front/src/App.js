@@ -16,12 +16,13 @@ function App() {
 			<div className="App">
 				<header className="App-header">
 					<img src={logo} className="App-logo" alt="logo" />
+					<h1 className="App-header-title"><Link className="test" to="/">Pressurized Octopus</Link></h1>
 					<nav>
-						<ul className="App-ul"> 
-							<li className="App-header-title"><Link to="/">Pressurized Octopus</Link></li>
-							<li><Link to="/table">Table</Link></li>
-							<li><Link to="/calculform">Calcul</Link></li>
-						</ul>
+						<div className="table" > 
+							<h2><Link className="test" to="/table">Table</Link></h2>
+							<h2><Link className="test" to="/calculform">Calcul</Link></h2>
+						</div>
+
 					</nav>
 				</header>
 				<div className="Container">

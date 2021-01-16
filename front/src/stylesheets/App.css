@@ -3,7 +3,9 @@
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: rosybrown;
+  background-image: url("../img/oceanMontagne.jpg");
+  background-size: 100% 100%;
+
 }
 
 .App-logo {
@@ -16,17 +18,10 @@
   display: flex;
   padding: 5px;
   justify-content: space-between;
-  background-color: rgba(255, 255, 255, 2);
+  background-color: rgba(255, 255, 255, 0);
+
 }
 
-.App-ul {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 
 .App-ul > li {
   flex: 1;
@@ -39,7 +34,7 @@ li a {
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(deg);
+    transform: rotate(360deg);
   }
   to {
     transform: rotate(0deg);
@@ -48,6 +43,48 @@ li a {
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 200s linear;
+    animation: App-logo-spin infinite 10s linear;
   }
+}
+
+
+
+
+.App-header-title {
+  text-align: center;
+  margin-right: 41%;
+  flex: none;
+  text-decoration: none !important;
+  font-family: sans-serif;
+  color: green;
+  
+
+}
+
+.table{
+  display: flex;
+  flex : none;
+  justify-content: space-between;
+  list-style: none;
+  margin: 170px;
+  margin-top: 0%;
+  font-family: sans-serif; 
+  
+ 
+}
+
+.table h2{
+  text-decoration: none !important;
+  margin-left: 20%; 
+  
+}
+
+#stable{
+  display: flex;
+}
+
+
+.test{
+  text-decoration: none !important;
+  color: white;
 }
