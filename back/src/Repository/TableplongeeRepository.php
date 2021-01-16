@@ -9,9 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityManager;
-// use Doctrine\ORM\QueryBuilder;
 
-use App\Entity\Profondeur;
 
 /**
  * @method Tableplongee|null find($id, $lockMode = null, $lockVersion = null)
@@ -41,7 +39,7 @@ class TableplongeeRepository extends ServiceEntityRepository
         $query = $entityManager->createQueryBuilder();
         $query->select('p.profondeur, t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
         ->from('App\Entity\Profondeur', 'p')
-        ->join('App\Entity\Temps', 't','WITH','t.est_a = p.id')
+        ->join('App\Entity\Temps', 't','WITH','t.estA = p.id')
         ->where('p.correspond = :id')
         ->setParameter('id', $id);
 
@@ -58,7 +56,7 @@ class TableplongeeRepository extends ServiceEntityRepository
         $query = $entityManager->createQueryBuilder();
         $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
         ->from('App\Entity\Temps', 't')
-        ->join('App\Entity\Profondeur', 'p','WITH','t.est_a = p.id')
+        ->join('App\Entity\Profondeur', 'p','WITH','t.estA = p.id')
         ->where('t.temps >= :temps AND p.profondeur = :prof AND p.correspond = :id')
         ->setMaxResults(1)
         ->setParameter('temps', $duree_pg)
@@ -77,7 +75,7 @@ class TableplongeeRepository extends ServiceEntityRepository
         $query = $entityManager->createQueryBuilder();
         $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
         ->from('App\Entity\Temps', 't')
-        ->join('App\Entity\Profondeur', 'p','WITH','t.est_a = p.id')
+        ->join('App\Entity\Profondeur', 'p','WITH','t.estA = p.id')
         ->where('t.temps <= :temps AND p.profondeur = :prof AND p.correspond = :id')
         ->orderBy('t.temps' ,'desc')
         ->setMaxResults(1)

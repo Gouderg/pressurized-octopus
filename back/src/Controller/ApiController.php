@@ -12,6 +12,7 @@ use App\Entity\Temps;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 
 
@@ -128,9 +129,9 @@ class ApiController extends AbstractController
 
 
 	/**
-     * @Route("/calc", name="calc")
+     * @Route("/calc", methods={"GET"}, name="calc")
      */
-	public function main_calcul_plongee(){
+	public function main_calcul_plongee(Request $request){
 		
 		# Zone de saisie utilisateur
 		$table_plonge = 1;

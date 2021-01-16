@@ -62,7 +62,7 @@ const CalculForm = () => {
              <input type="number" min="0" max="200" name="temps" onChange={handleChange}></input>
              <br/>
              <br/>
-             Profndeur Max:
+             Profondeur Max:
              <input type="number" min="0" max="70" name="profondeur" onChange={handleChange}></input>
              <br/>
              <br/>
