@@ -66,11 +66,11 @@ const CalculForm = () => {
                     <option value="15"> 15L</option>
                     <option value="18"> 18L</option>
                 </select>
-                <h2>Remplissage de la bouteille </h2>
+                <h2>Remplissage de la bouteille : </h2>
                 <input type="number" id="bouteille" name="bouteille" min="0"  defaultValue="200" max= "250" onChange={handleChange}></input>
                 <h2>Durée de la ploongée avant la remonter en min : </h2>
                 <input type="number" min="0" max="200" name="temps" defaultValue="10" onChange={handleChange}></input>
-                <h2>Profondeur Max: </h2>
+                <h2>Profondeur Max : </h2>
                 <input type="number" min="0" max="70" name="profondeur" defaultValue="10" onChange={handleChange}></input>
                 <br/>
                 <br/>
