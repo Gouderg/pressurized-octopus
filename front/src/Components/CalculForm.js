@@ -28,7 +28,7 @@ const CalculForm = () => {
   		redirect: 'follow'
 	};
 
-		fetch("http://127.0.0.1:8000/api/resultForm?profondeur="+data.profondeur+"&bouteille="+data.bouteille+"&litre="+data.litre+"&temps="+data.temps, requestOptions)
+		fetch("http://127.0.0.1:8000/api/calc?profondeur="+data.profondeur+"&bouteille="+data.bouteille+"&litre="+data.litre+"&temps="+data.temps, requestOptions)
 		  .then(response => response.json())
 		  .then(result => setResult(result))
 		  .catch(error => console.log('error', error));

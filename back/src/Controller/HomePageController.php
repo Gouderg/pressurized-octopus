@@ -34,9 +34,8 @@ class HomePageController extends AbstractController
         //     return $responseError;
             
         // }
-        
         $api=$_GET;
-
+        var_dump($_GET);
         
 
 

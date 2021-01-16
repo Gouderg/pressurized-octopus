@@ -4,15 +4,17 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
-
-use App\Entity\Profondeur;
-use App\Entity\Tableplongee;
-use App\Entity\Temps;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+use App\Entity\Profondeur;
+use App\Entity\Tableplongee;
+use App\Entity\Temps;
+use App\Validator\ApiInputValidator;
+use App\Validator\ApiInput;
 
 
 
@@ -133,6 +135,27 @@ class ApiController extends AbstractController
      */
 	public function main_calcul_plongee(Request $request){
 		
+		# On récupère la réponse
+		$api = [];
+		foreach($_GET as $key => $value) {
+			$validator = new ApiInputValidator();
+			$message = new ApiInput();
+			$temp = $validator->validate($value, $message);
+			if ($temp) {
+				$api[$key] = $temp;
+			} else {
+				$errors = [
+					'status' => 404,
+					'errors' => "Get not found",
+					];
+				$responseError = new JsonResponse($errors);
+				$responseError->setStatusCode(Response::HTTP_NOT_FOUND); // code 404
+				return $responseError;
+			}
+		}
+
+
+
 		# Zone de saisie utilisateur
 		$table_plonge = 1;
 		$pression_bouteille = 200;
