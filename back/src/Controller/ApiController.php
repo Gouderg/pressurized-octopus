@@ -17,36 +17,31 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
 * @Route("/api", name="api")
 */
-
 class ApiController extends AbstractController
 {
 	/**
      * @Route("/profondeur", name="profondeur")
      */
-
 	public function listProfondeur()
 	{
 		$profondeurs =$this->getDoctrine()
                     ->getRepository(Profondeur::class)
                     ->findApiAll();
     
-
-        
         $response = new Response();
         
         $response->setContent(json_encode($profondeurs));
 		$response->headers->set('Content-Type', 'application/json');
 		$response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
-        //$response = 
 
 	}
+
 	/**
      * @Route("/profondeur/show/{id}", name="show_profondeur")
      */
     public function showCours($id)
-    {
-       
+    {   
         $profondeur = $this->getDoctrine()
             ->getRepository(Profondeur::class)
             ->findApiId($id);
@@ -57,9 +52,8 @@ class ApiController extends AbstractController
                 'errors' => "Post not found",
                ];
             return new JsonResponse($data);
-        }
-
-        //return new JsonResponse($cours);
+		}
+		
         $response = new Response();
         
         $response->setContent(json_encode($profondeur));
@@ -85,13 +79,12 @@ class ApiController extends AbstractController
 		$response->headers->set('Content-Type', 'application/json');
 		$response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
-        //$response = 
 
 	}
+
 	/**
      * @Route("/temps", name="temps")
      */
-
 	public function listTemps()
 	{
 		$tmp =$this->getDoctrine()
@@ -104,14 +97,12 @@ class ApiController extends AbstractController
 		$response->headers->set('Content-Type', 'application/json');
 		$response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
-        //$response = 
 
 	}
 
 	/**
      * @Route("/tables/show/{id}", name="show_choix")
      */
-
 	public function choix($id) {
 		$tb =$this->getDoctrine()
                     ->getRepository(Tableplongee::class)
@@ -124,9 +115,6 @@ class ApiController extends AbstractController
                ];
             return new JsonResponse($data);
      		}
-
-
-        
   
         $response = new Response();
         
@@ -134,7 +122,6 @@ class ApiController extends AbstractController
 		$response->headers->set('Content-Type', 'application/json');
 		$response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
-        //$response = 
 
 	}
 
@@ -142,195 +129,141 @@ class ApiController extends AbstractController
 	/**
      * @Route("/calc", name="calc")
      */
+	public function main_calcul_plongee(){
+		
+		# Zone de saisie utilisateur
+		$table_plonge = 1;
+		$pression_bouteille = 200;
+		$volume_bouteille = 15;
+		$profondeur = 78;
+		$duree_plongee = 78;
+
+		# Constante
+		$vitesse_descente = 1/3;
+
+		$tempProfondeur = $this->getDoctrine()->getRepository(Profondeur::class)->dbRequestNextSupProf($table_plonge, $profondeur);
+		
+		if (empty($tempProfondeur)) {
+			$profondeur = $this->getDoctrine()->getRepository(Profondeur::class)->dbRequestLastProf($table_plonge)[0]["profondeur"];
+		} else {
+			$profondeur = $tempProfondeur[0]['profondeur'];
+		}
 	
+		$temps_au_fond = (($duree_plongee * 60 ) - ($profondeur/$vitesse_descente)) / 60;
+		$tempPalier = $this->getDoctrine()->getRepository(Temps::class)->dbRequestNextSupTemps($table_plonge, $profondeur, $temps_au_fond);
 
-	public function calc(){
-		# Zone des constantes
-		$respiration_moyenne = 1/3;   # 20L/min = 1/3 L/s
-		$vitesse_descente = 1/3;      # 20m/min = 1/3 m/s
-		$vitesse_remonte_avant_pallier = 1/6; # 10m/min => 1/6m/s
-		$vitesse_remonte_entre_pallier = 1/10;   # 6m/min => 1/10m/s
-		$evolution_bar = 0.1;               # Le bar évolue de 1/30 toutes les secondes pour une remontée de 20m/min
+		if (empty($tempPalier)) {
+			$palier = $this->getDoctrine()->getRepository(Temps::class)->dbRequestLastTemps($table_plonge, $profondeur)[0];
+		} else {
+			$palier = $tempPalier[0];
+		}
+
+		while (1) {
+			$data = $this->calcul_plongee($profondeur, $duree_plongee, $pression_bouteille, $volume_bouteille, $palier);
+			if (empty($data)) {
+				$tempPalier = $this->getDoctrine()->getRepository(Temps::class)->dbRequestBeforeTemps($table_plonge, $profondeur, $palier['temps']);
+				if (empty($tempPalier)) {
+					$profondeur = $this->getDoctrine()->getRepository(Profondeur::class)->dbRequestBeforeProf($table_plonge, $profondeur)[0]["profondeur"];
+					$temps_au_fond = (($duree_au_fond * 60) - ($profondeur/$vitesse_descente)) / 60;
+					$tempPalier = $this->getDoctrine()->getRepository(Temps::class)->dbRequestNextSupTemps($table_plonge, $profondeur, $temps_au_fond);
+					if (empty($tempPalier)) {
+						$palier = $this->getDoctrine()->getRepository(Temps::class)->dbRequestLastTemps($table_plonge, $profondeur)[0];
+					} else {
+						$palier = $tempPalier[0];
+					}
+				} else {
+					$palier = $tempPalier[0];
+				}
+			} else {
+				break;
+			}
+		}
+
+		$response = new Response();
+        
+        $response->setContent(json_encode($data));
+		$response->headers->set('Content-Type', 'application/json');
+		$response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+	}
+		
+	public function calcul_plongee($profondeur, $temps, $pression_bouteille, $volume_bouteille, $palierUnparse) {
+		# Zone des constantes de plongées
+		$respiration_moyenne = 1/3; 				# 20 L/min => 1/3 L/s
+		$vitesse_descente = 1/3;					# 20 m/min => 1/3 m/s
+		$vitesse_remonte_avant_pallier = 1/6; 		# 10 m/min => 1/6 m/s
+		$vitesse_remonte_entre_pallier = 1/10;		#  6 m/min => 1/10 m/s
+		$evolution_bar = 0.1;						# Le bar évolue de 1/30 toutes les secondes pour une descente de 20m/min
 		$bar = 1;
-		$pression_bouteille = 200;    # 200 bar
-		$volume_bouteille = 13;
-		$tables = 1;
-		$good =0;
-		$data = array();
-
-		# On travaille en secondes, en mètre et en Litres
-		# On récupère les données utilisateur
-
-		$profondeur = 42;
-		$duree_plongee_min= 10; # (mètre) Avant de l'utiliser, vérifier si la profondeur existe et sinon prendre la profondeur immédiatement au dessus
-		$duree_plongee_sec = $duree_plongee_min * 60; # (seconde) -> 20 min
+		$duree_plongee = $temps * 60;
 		$contenance_bouteille = $pression_bouteille * $volume_bouteille;
 
-		$temps_descente = $profondeur/$vitesse_descente;  
+		$data = [];
 
+		# On cherche le temps de la descente
+		$temps_descente = $profondeur / $vitesse_descente;
 		$evo_bar = $evolution_bar * $vitesse_descente;
+
+		# Descente
+		list($contenance_bouteille, $bar, $data) = $this->forwardConsommation($temps_descente, $respiration_moyenne, $evo_bar, $bar, $contenance_bouteille, $data, $volume_bouteille);
 		
-
-		for ($i=0; $i<=$temps_descente; $i++){
-			$contenance_bouteille -= $respiration_moyenne*$bar;
-    		$bar += $evo_bar ;     
-		}
-
-		$contenance_bouteille= round($contenance_bouteille, 2);
-		$contenance_bouteille_ap_desc = $contenance_bouteille;
-
-		
-
-		$bar = round($bar,2);
-		$bar_av_rem = $bar;
-		$verif=0;
-		$new_profondeur=0;
-		
-			
-	        
-	      
-
-		$duree_au_fond_sec = $duree_plongee_sec - $temps_descente;
-		$duree_au_fond_min = floor($duree_au_fond_sec/60);
+		# Temps au fond de l'eau
+		$duree_au_fond = $palierUnparse["temps"] * 60 - $temps_descente;
+		list($contenance_bouteille, $bar, $data) = $this->forwardConsommation($duree_au_fond, $respiration_moyenne, 0, $bar, $contenance_bouteille, $data, $volume_bouteille);
 	
-		while($verif == 0){
-			
-			$new_bar=$bar;
-			$new_profondeur = $profondeur;
-			$new_contenance_bouteille = $contenance_bouteille;
-
-
-
-			if ($good==0){
-		    	$temps_calc = $this->getDoctrine()
-		                    ->getRepository(Tableplongee::class)
-		                    ->findTime($duree_au_fond_min,$profondeur,$tables);
-		                    
-		    }
-
-		    elseif($good == 1){
-		    	
-		    
-		    	$temps_calc = $this->getDoctrine()
-		                    ->getRepository(Tableplongee::class)
-		                    ->findTime_error($duree_au_fond_min,$profondeur,$tables);
-		                    
-		      	
-		    }
-
-	        
-	        for( $i=0; $i <= $duree_au_fond_sec; $i ++){
-				$new_contenance_bouteille -= $respiration_moyenne*$new_bar;
-			}
-			 
-
-			$new_contenance_bouteille = round($new_contenance_bouteille, 2);
-			$contenance_bouteille_av_rem = $new_contenance_bouteille;
-
-			
+		# On parse les paliers avant de continuer
+		$palier = [[15,$palierUnparse["palier15"]], [12,$palierUnparse["palier12"]], [9,$palierUnparse["palier9"]], [6,$palierUnparse["palier6"]], [3,$palierUnparse["palier3"]]];
 		
+		$isVisited = FALSE;
+		foreach($palier as $elt) {
+			if ($elt[1]) {
+				$profToParcours = $profondeur - $elt[0];
+				$profondeur -= $profToParcours;
 
-                   // var_dump($temps_calc);
-             
+				if ($isVisited) {
+					$evo_bar = $evolution_bar * $vitesse_remonte_entre_pallier;
+					$timeProfToParcours = $profToParcours / $vitesse_remonte_entre_pallier;
+				} else {
+					$evo_bar = $evolution_bar * $vitesse_remonte_avant_pallier;
+					$timeProfToParcours = $profToParcours / $vitesse_remonte_avant_pallier;
+				}
 
-	        $isVisited = False;
-	        $palier = array();
-
-	        foreach ($temps_calc[0] as $key => $value) {
-	        	if ($key != "temps") {
-	        		array_push($palier, array(intval(str_replace('palier',"",$key)), $value));
-	        	}
-	        }
-
-	       
-	      
-			foreach ($palier as $key => $value) {
-					if ($value[1] != 0) {
-						
-						$profToParcours = abs($value[0] - $new_profondeur);
-	        			$new_profondeur -= $profToParcours;
-	        			
-
-	        			if ($isVisited == True) {
-	        				$evo_bar = $evolution_bar * $vitesse_remonte_entre_pallier;
-				            $timeProfToParcours = $profToParcours / $vitesse_remonte_entre_pallier;
-
-				        }
-
-				        else{
-				            $evo_bar = $evolution_bar * $vitesse_remonte_avant_pallier;
-				            $timeProfToParcours = $profToParcours / $vitesse_remonte_avant_pallier;
-				        }
-
-				         for ($i =0; $i <= $timeProfToParcours; $i ++){
-				            $new_contenance_bouteille -= $respiration_moyenne*$new_bar;
-				            $new_bar -= $evo_bar;
-
-				        }	
-
-
-
-			        # Consommation d'air sur la durée du palier désiré
-				        for ($i = 0; $i <= $value[1]*60; $i ++){
-				            $new_contenance_bouteille -= $respiration_moyenne*$new_bar;
-				        }
-
-				        $new_contenance_bouteille= round($new_contenance_bouteille, 2);
-				        $new_bar = round($new_bar, 2);
-				      
-
-				        $isVisited = True;
-        			}	
-        		}
-
-	    	for ($i = 0;$i <= $new_profondeur/$vitesse_remonte_entre_pallier; $i++){
-		        $new_contenance_bouteille -= $respiration_moyenne*$new_bar;		        
-		    	$new_bar-=$evo_bar;
-
-		    }
-
-		    $new_contenance_bouteille = round($new_contenance_bouteille, 2);
-		    $contenance_bouteille_fin = $new_contenance_bouteille;
-		    
-			$new_bar = round($new_bar, 2);
-			$bar_fin= $new_bar;
-
-			if ($contenance_bouteille_fin < $pression_bouteille*$volume_bouteille*0.1){
-				$verif = 0;
-				$good =1;
-				echo $contenance_bouteille_fin.'<br/>';
-				echo $contenance_bouteille*0.1;
+				# Remontée jusqu'au palier
+				list($contenance_bouteille, $bar, $data) = $this->forwardConsommation($timeProfToParcours, $respiration_moyenne, -$evo_bar, $bar, $contenance_bouteille, $data, $volume_bouteille);
+				
+				# Attente au palier
+				list($contenance_bouteille, $bar, $data) = $this->forwardConsommation($elt[1]*60, $respiration_moyenne, 0, $bar, $contenance_bouteille, $data, $volume_bouteille);
+				
+				$isVisited = TRUE;
 			}
-			else{
-				$verif=1;
-
-				$palier = $value[0];
-				$tps = $value[1];
-				$dtp = $timeProfToParcours + $duree_plongee_min;
-
-				$data["palier"] = $palier; 
-				$data["temps"] = $tps;
-				$data["duree_plongee"] = $dtp;
-				$data["contenance_bouteille_av_rem"] =$contenance_bouteille_av_rem;
-				$data["contenance_bouteille_fin"] = $contenance_bouteille_fin;
-				$data["bar_av_rem"] = $bar_av_rem;
-				$data["bar_fin"] = $bar_fin;
-
-				var_dump($data);
-
-
-			}
-		
 		}
-	 //  	$response = new Response();
 
-		//  $response->setContent(json_encode($data));
-		//  $response->headers->set('Content-Type', 'application/json');
-		// $response->headers->set('Access-Control-Allow-Origin', '*');
-  //       return $response;
-	 }
+		# On parcours la distance restante pour remontée à la surface
+		list($contenance_bouteille, $bar, $data) = $this->forwardConsommation($profondeur/$vitesse_remonte_entre_pallier, $respiration_moyenne, -$evo_bar, $bar, $contenance_bouteille, $data, $volume_bouteille);
+		
+		# Si on trouve un mauvais chiffre, on renvoie une liste vide
+		if ($contenance_bouteille < $pression_bouteille*$volume_bouteille*0.1) {
+			return array();
+		} else {
+			return $data;
+		}
+	}
 
- 						
+	public function forwardConsommation($duree, $respiration_moyenne, $evo, $bar, $contenance_bouteille, $data, $volume_bouteille) {
+		for ($i = 0; $i < $duree; $i++) {
+			$contenance_bouteille -= $respiration_moyenne*$bar;
+			$bar += $evo;
+
+			if ($bar >= 1) {
+				array_push($data, $this->addStep(round($contenance_bouteille,2), round(($bar-1)*10),round($bar,1), round($contenance_bouteille / $volume_bouteille)));
+			}
+		}
+		return array(round($contenance_bouteille, 2), round($bar, 2), $data);
+	}
+
+	public function addStep($contenance_bouteille, $profondeur, $bar, $pression) {
+		return ["contenance_bouteille" => $contenance_bouteille, "profondeur" => $profondeur, "bar" => $bar, "pression" => $pression];
+	} 						
 }
 
 

@@ -70,7 +70,6 @@ class TableplongeeRepository extends ServiceEntityRepository
 
     public function findTime_error($duree_pg,$profondeur, $tables)
     {
-
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQueryBuilder();
@@ -83,9 +82,6 @@ class TableplongeeRepository extends ServiceEntityRepository
         ->setParameter('temps', $duree_pg)
         ->setParameter('prof', $profondeur)
         ->setParameter('id', $tables);
-
-
-
 
         // returns an array of Product objects
         return $query->getQuery()->getResult();   

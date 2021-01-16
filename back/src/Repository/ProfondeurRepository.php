@@ -27,25 +27,6 @@ class ProfondeurRepository extends ServiceEntityRepository
         ;
     }
 
-
-    // /**
-    //  * @return Profondeur[] Returns an array of Profondeur objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    
     public function findApiId ($value): ?Profondeur
     {
         return $this->createQueryBuilder('p')
@@ -56,34 +37,60 @@ class ProfondeurRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findTables($id)
+    public function dbRequestNextSupProf($table, $profondeur)
     {
+
         $entityManager = $this->getEntityManager();
 
-        $query = $entityManager->createQuery(
-            'SELECT profondeur.profondeur, temps.temps, temps.palier15, temps.palier9, temps.palier12, temps.palier6, temps.palier,
-            FROM profondeur,temps
-            WHERE correspond_id = :id'
-        )->setParameter('id', $id);
+        $query = $entityManager->createQueryBuilder();
+        $query->select('p.profondeur')
+        ->from('App\Entity\Profondeur', 'p')
+        ->where('p.profondeur >= :prof AND p.correspond = :id')
+        ->setMaxResults(1)
+        ->setParameter('prof', $profondeur)
+        ->setParameter('id', $table);
 
-        return $query->getResult(Query::HYDRATE_ARRAY);
+        // returns an array of Product objects
+        return $query->getQuery()->getResult();   
+    }
 
+    public function dbRequestLastProf($table)
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQueryBuilder();
+        $query->select('p.profondeur')
+        ->from('App\Entity\Profondeur', 'p')
+        ->where('p.correspond = :id')
+        ->orderBy('p.profondeur' ,'desc')
+        ->setMaxResults(1)
+        ->setParameter('id', $table);
+
+        // returns an array of Product objects
+        return $query->getQuery()->getResult();   
+    }
+
+    public function dbRequestBeforeProf($table, $profondeur)
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQueryBuilder();
+        $query->select('p.profondeur')
+        ->from('App\Entity\Profondeur', 'p')
+        ->where('p.correspond = :id AND p.profondeur < :prof')
+        ->orderBy('p.profondeur' ,'desc')
+        ->setMaxResults(1)
+        ->setParameter('id', $table)
+        ->setParameter('prof', $profondeur);
+
+        // returns an array of Product objects
+        return $query->getQuery()->getResult();   
     }
 
     
 }
-
-
-    
-/**
-requetes sql pour recuperer temps, profondeur et palier pour 
-
-
-select profondeur.profondeur, temps.temps, temps.palier15, temps.palier9, temps.palier12, temps.palier6, temps.palier3 
-from profondeur, temps 
-where profondeur.correspond_id=1;
-
-*/
 
 
 
