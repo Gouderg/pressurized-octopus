@@ -83,6 +83,7 @@ h4{
 
 h1{
 	color: white;
+
 }
 
 h2{
@@ -92,4 +93,29 @@ h2{
 
 h4{
 	color: white;
+}
+
+.result{
+	display: flex ;
+  	justify-content: right;
+  	align-items: right;
+  	flex-direction: column;
+  	font-family: sans-serif;
+  	margin-left: 40%;
+  	margin-top: 8%; 
+  	background-color: rgba(51,91,128,0.8);
+  	border-radius: 20px;
+
+  	
+  
+}
+
+.dep{
+	margin-left: 4%;
+}
+
+#octopus{
+	width: 2%;
+	height: 2%;
+
 }

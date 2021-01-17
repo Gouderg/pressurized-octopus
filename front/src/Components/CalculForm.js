@@ -81,14 +81,18 @@ const CalculForm = () => {
         </div>
         <div className="vl"></div>
         <div id="droite">
-            <h2 className="graphe"> Graphe </h2>
-            <div>
+            <h1 className="graphe"> Résultats </h1>
+            <div >
                 {result &&
-                <div> 
-                    <p>Durée de la remontée: {result.dtr} min et durée totale de la plongée: {result.dtp} min</p>
-                    <p>Avant remontée: {result.vbAvantRemonte} L, {result.pbAvantRemonte} bar</p>
-                    <p>Après remonée: {result.vbApresRemonte} L, {result.pbApresRemonte} bar</p>
-                    <p>Profondeur: {result.profondeur} mètres</p>
+                <div className="result"> 
+                <div className="dep">
+                    <h2>Durée de la remontée: {result.dtr} min </h2>
+                    <h2>Durée totale de la plongée: {result.dtp} min</h2>
+                    <h2>Avant remontée: {result.vbAvantRemonte} L à {result.pbAvantRemonte} bar</h2>
+                    <h2>Après remontée: {result.vbApresRemonte} L à {result.pbApresRemonte} bar</h2>
+                    <h2>Profondeur de la plongée: {result.profondeur} mètres</h2>
+                   
+                    </div>
                 </div>
                 }
             </div>

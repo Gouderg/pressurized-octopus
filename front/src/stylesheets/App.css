@@ -3,9 +3,12 @@
   height: 100%;
   margin: 0;
   padding: 0;
-  background-image: url("../img/oceanMontagne.jpg");
-  background-size: 100% 100%;
+ 
+}
 
+body {
+   background-image: url("../img/oceanMontagne.jpg");
+  background-size: cover;
 }
 
 .App-logo {
@@ -48,7 +51,12 @@ li a {
 }
 
 
-
+#root{
+  
+  background: url(../img/oceanMontagne.jpg);
+  background-repeat:no-repeat !important;
+  background-size: cover; 
+}
 
 .App-header-title {
   text-align: center;
