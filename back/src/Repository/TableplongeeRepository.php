@@ -23,13 +23,20 @@ class TableplongeeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Tableplongee::class);
     }
-    public function findApiAll()
+   public function findApiAll()
     {
-        return $this->createQueryBuilder('c')
-            ->getQuery()
-            ->getResult(Query::HYDRATE_ARRAY)
-        ;
+         $entityManager = $this->getEntityManager();
+
+
+        $query = $entityManager->createQueryBuilder();
+
+        $query->select('p.correspond, p.profondeur, t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
+        ->from('App\Entity\Profondeur', 'p')
+        ->join('App\Entity\Temps', 't','WITH','t.estA = p.id');
+
+         return $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
+
 
     public function findTables($id)
     {
