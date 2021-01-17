@@ -7,7 +7,7 @@ import '../stylesheets/CalculForm.css';
 const CalculForm = () => {
 
 	const [data, setData] = React.useState();
-	const [result, setResult] = React.useState({});
+    const [result, setResult] = React.useState(false);
 
 	const handleChange = (e) => 
 	{
@@ -25,14 +25,15 @@ const CalculForm = () => {
 		e.preventDefault()
 		
 		var requestOptions = {
-  		method: 'GET',
-  		redirect: 'follow'
-	};
+  		    method: 'GET',
+  		    redirect: 'follow'
+	    };
 
-		fetch("http://127.0.0.1:8000/api/resultForm?tableplong="+data.tableplong+"&profondeur="+data.profondeur+"&bouteille="+data.bouteille+"&litre="+data.litre+"&temps="+data.temps, requestOptions)
+		fetch("http://127.0.0.1:8000/api/calc?tableplonge="+data.tableplonge+"&profondeur="+data.profondeur+"&pressionbout="+data.bouteille+"&volumebout="+data.litre+"&temps="+data.temps, requestOptions)
 		  .then(response => response.json())
 		  .then(result => setResult(result))
-		  .catch(error => console.log('error', error));
+          .catch(error => console.log('error', error));
+        
 	}
 	React.useEffect(()=>{
 		console.log(data)
@@ -53,11 +54,11 @@ const CalculForm = () => {
                     <label>
                         <h4>BULLMAN</h4>
                     </label>
-                    <input type="radio" value="1" name="tableplong" onChange={handleChange} />
+                    <input type="radio" value="1" name="tableplonge" onChange={handleChange} />
                     <label>
                         <h4>MN90</h4>
                     </label>
-                    <input type="radio" value="2" name="tableplong" onChange={handleChange} />
+                    <input type="radio" value="2" name="tableplonge" onChange={handleChange} />
                 </div>
                 <h2>Contenance de la bouteille : </h2>
                 <select name="litre" id= "litre" onChange={handleChange}>
@@ -78,9 +79,19 @@ const CalculForm = () => {
             </form>
             </div>
         </div>
-        <div class="vl"></div>
+        <div className="vl"></div>
         <div id="droite">
-        <h2 className="graphe"> Graphe </h2>
+            <h2 className="graphe"> Graphe </h2>
+            <div>
+                {result &&
+                <div> 
+                    <p>Durée de la remontée: {result.dtr} min et durée totale de la plongée: {result.dtp} min</p>
+                    <p>Avant remontée: {result.vbAvantRemonte} L, {result.pbAvantRemonte} bar</p>
+                    <p>Après remonée: {result.vbApresRemonte} L, {result.pbApresRemonte} bar</p>
+                    <p>Profondeur: {result.profondeur} mètres</p>
+                </div>
+                }
+            </div>
         </div>
 
 </div>
