@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class HomePageController extends AbstractController
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/homepage", name="homepage")
      */
     public function index(): Response
     {

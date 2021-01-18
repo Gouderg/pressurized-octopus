@@ -40,7 +40,7 @@ class TableplongeeRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
     }
-
+  
     // Récupère les profondeurs correspondant à la table de plongée choisie
     public function findIdProfondeur($id) {
         $query = $this->createQueryBuilder('tp');
