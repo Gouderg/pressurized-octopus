@@ -53,7 +53,7 @@ const CalculForm = () => {
                         
                         <h2>Choix de la Table : </h2>
                         <div className="form-radio">
-                            <label><h4>BULLMAN:</h4></label> <input type="radio" value="1" name="tableplonge" onChange={handleChange} checked required/>
+                            <label><h4>BULLMAN:</h4></label> <input type="radio" value="1" name="tableplonge" onChange={handleChange} required/>
                             <label><h4>MN90:</h4></label> <input type="radio" value="2" name="tableplonge" onChange={handleChange} required/>
                         </div>
                         

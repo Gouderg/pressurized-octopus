@@ -34,37 +34,33 @@ const TableShow = () => {
                     </div>
                 </div>
 
-                <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Profondeur</th>
-                            <th>Temps</th>
-                            <th>Palier 15</th>
-                            <th>Palier 12</th>
-                            <th>Palier 9</th>
-                            <th>Palier 6</th>
-                            <th>Palier 3</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {result && Object.keys(result).map((profondeur) => {
-                        return (
-                            result[profondeur].map((elt) => (
-                                <tr>
-                                    <td>{profondeur}</td>
-                                    <td>{elt.temps}</td>
-                                    <td>{elt.palier15}</td>
-                                    <td>{elt.palier12}</td>
-                                    <td>{elt.palier9}</td>
-                                    <td>{elt.palier6}</td>
-                                    <td>{elt.palier3}</td>
-                                </tr>
-                            ))
-                        );
-                    })}
-                    </tbody>
-                </table>
+                <div className="table-result">
+                    <div className="table-result-header">
+                        <div className="table-result-th">Profondeur</div>
+                        <div className="table-result-th">Temps</div>
+                        <div className="table-result-th">Palier 15</div>
+                        <div className="table-result-th">Palier 12</div>
+                        <div className="table-result-th">Palier 9</div>
+                        <div className="table-result-th">Palier 6</div>
+                        <div className="table-result-th">Palier 3</div>
+                    </div>
+                    <div className="table-result-content">
+                        {result && Object.keys(result).map((profondeur) => {
+                            return (
+                                result[profondeur].map((elt) => (
+                                    <div className="table-result-row">
+                                        <div className="table-result-data">{profondeur}</div>
+                                        <div className="table-result-data">{elt.temps}</div>
+                                        <div className="table-result-data">{elt.palier15}</div>
+                                        <div className="table-result-data">{elt.palier12}</div>
+                                        <div className="table-result-data">{elt.palier9}</div>
+                                        <div className="table-result-data">{elt.palier6}</div>
+                                        <div className="table-result-data">{elt.palier3}</div>
+                                    </div>
+                                ))
+                            );
+                        })}
+                    </div>
                 </div>
 			</div>
 	);

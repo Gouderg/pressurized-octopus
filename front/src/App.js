@@ -7,7 +7,7 @@ import {
 
 import './stylesheets/App.css';
 import logo from './img/logo.png';
-import {HomePage, TableShow, CalculForm, CalculResult} from './Components';
+import {HomePage, TableShow, CalculForm} from './Components';
 
 function App() {
 
@@ -32,7 +32,6 @@ function App() {
 						<Route exact path="/"><HomePage /></Route>
 						<Route path="/table"><TableShow /></Route>
 						<Route path="/calculform"><CalculForm /></Route>
-						<Route path="/calculresult"><CalculResult /></Route>
 					</Switch>
 				</div>
 				<footer className="App-footer">

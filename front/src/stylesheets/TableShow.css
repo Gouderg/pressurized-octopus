@@ -9,10 +9,35 @@
 	align-items: flex-end;
 }
 
-tr {
-	border: 1px solid white
+
+.table-result {
+	width: 100%;
+	margin-top: 20px;
+	font-family: sans-serif;
 }
 
-td {
+.table-result-header {
+	display: flex;
+	width: 100%;
+	background-color: black;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.table-result-th, .table-result-data {
+	flex: 1 1 10%;
+	text-align: center;
+	padding: 12px;
 	color: white;
 }
+
+.table-result-th{
+	font-weight: bold;
+}
+
+.table-result-row {
+	width: 100%;
+	display: flex;
+	background: rgba(51,91,128,0.8);
+}
+
