@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/log.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+ 
+    <form method="post">
+    {% if error %}
+        <div class="alert alert-danger" id="mssg_id"><h4>{{ error.messageKey|trans(error.messageData, 'security') }}</h4></div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3" id="mssg_id">
+           <h4> You are logged in as : </h4>
+        <h4 id="loguser">{{ app.user.username }} </h4> 
+        <a href="{{ path('app_logout') }}">Logout</a>
+    </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal" id="title">Please sign in</h1>
+    <div id="centre">
+    <div id="gauche">
+    <label for="inputUsername"> <h3>Username</h3></label>
+    <input type="text"  placeholder="admin" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
+    </div>
+
+     <div id="droite">
+    <label for="inputPassword"><h3>Password</h3></label>
+    <input type="text" placeholder="supermotdepasse" name="password" id="inputPassword" class="form-control" required>
+    </div>
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+    </div>
+    </br>
+    </br>
+    <button class="btn btn-lg btn-primary" id="button" type="submit">
+        Sign in
+    </button>
+</form>
+
+</div>
+{% endblock %}

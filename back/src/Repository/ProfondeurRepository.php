@@ -20,23 +20,34 @@ class ProfondeurRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Profondeur::class);
     }
-    // public function findApiAll()
-    // {
-    //     return $this->createQueryBuilder('c')
-    //         ->getQuery()
-    //         ->getResult(Query::HYDRATE_ARRAY)
-    //     ;
-    // }
+    public function findApiAll()
+    {
+         $entityManager = $this->getEntityManager();
 
-    // public function findApiId ($value): ?Profondeur
-    // {
-    //     return $this->createQueryBuilder('p')
-    //         ->andWhere('p.id = :val')
-    //         ->setParameter('val', $value)
-    //         ->getQuery()
-    //         ->getOneOrNullResult()
-    //     ;
-    // }
+
+        $query = $entityManager->createQueryBuilder();
+
+        $query->select('p.correspond, p.profondeur, t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
+        ->from('App\Entity\Profondeur', 'p')
+        ->join('App\Entity\Temps', 't','WITH','t.estA = p.id');
+
+         return $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
+    }
+
+    // select p.correspond_id, p.profondeur, t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3
+    // from profondeur p
+    // join temps t 
+    // on p.id = t.est_a_id;
+
+    public function findApiId ($value): ?Profondeur
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 
     // SELECT t.id FROM temps t JOIN profondeur p ON p.id = t.est_a_id WHERE t.id = 1;
     public function findIdTemps($id)
