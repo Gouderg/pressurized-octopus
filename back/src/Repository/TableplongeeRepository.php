@@ -23,25 +23,10 @@ class TableplongeeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Tableplongee::class);
     }
-    public function findApiAll()
-    {
-      $entityManager = $this->getEntityManager();
-
-
-        $query = $entityManager->createQueryBuilder();
-
-        $query->select(' tb.id ,p.profondeur, t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
-        ->from('App\Entity\Temps', 't')
-        ->join('App\Entity\Profondeur', 'p','WITH','t.estA = p.id')
-        ->join('App\Entity\Tableplongee', 'tb','WITH','tb.id = p.correspond');
-        
-
-         return $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
-    }
-
+    
+    // Récupère les paliers et les profondeurs nécessaires à une table de plongée
     public function findTables($id)
     {
-
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQueryBuilder();
@@ -55,80 +40,8 @@ class TableplongeeRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
     }
-
-    public function findTime($duree_pg,$profondeur, $tables)
-    {
-
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQueryBuilder();
-        $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
-        ->from('App\Entity\Temps', 't')
-        ->join('App\Entity\Profondeur', 'p','WITH','t.estA = p.id')
-        ->where('t.temps >= :temps AND p.profondeur = :prof AND p.correspond = :id')
-        ->setMaxResults(1)
-        ->setParameter('temps', $duree_pg)
-        ->setParameter('prof', $profondeur)
-        ->setParameter('id', $tables);
-
-        // returns an array of Product objects
-        return $query->getQuery()->getResult();   
-    }
-
-
-    public function findTime_error($duree_pg,$profondeur, $tables)
-    {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQueryBuilder();
-        $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
-        ->from('App\Entity\Temps', 't')
-        ->join('App\Entity\Profondeur', 'p','WITH','t.estA = p.id')
-        ->where('t.temps <= :temps AND p.profondeur = :prof AND p.correspond = :id')
-        ->orderBy('t.temps' ,'desc')
-        ->setMaxResults(1)
-        ->setParameter('temps', $duree_pg)
-        ->setParameter('prof', $profondeur)
-        ->setParameter('id', $tables);
-
-        // returns an array of Product objects
-        return $query->getQuery()->getResult();   
-    }
-
-
-
-
-
-    // /**
-    //  * @return Tableplongee[] Returns an array of Tableplongee objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Tableplongee
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')temps.palier15, temps.palier9, t
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-    // SELECT p.id FROM profondeur p JOIN tableplongee tp ON tp.id = p.correspond_id WHERE tp.id = 1;
-    // SELECT p.id FROM tableplongee tp JOIN profondeur p ON p.correspond_id = tp.id WHERE tp.id = 1;
+  
+    // Récupère les profondeurs correspondant à la table de plongée choisie
     public function findIdProfondeur($id) {
         $query = $this->createQueryBuilder('tp');
         $query->select('p.id')
