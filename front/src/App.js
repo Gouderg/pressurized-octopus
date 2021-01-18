@@ -15,14 +15,16 @@ function App() {
 		<Router>
 			<div className="App">
 				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<h1 className="App-header-title"><Link className="test" to="/">Pressurized Octopus</Link></h1>
+					<div className="App-logo-title">
+						<img src={logo} className="App-logo" alt="logo" />
+						<h1 className="App-header-title"><Link className="link" to="/">Pressurized Octopus</Link></h1>
+					</div>
+					
 					<nav>
-						<div className="table" > 
-							<h2><Link className="test" to="/table">Table</Link></h2>
-							<h2><Link className="test" to="/calculform">Calcul</Link></h2>
+						<div className="App-header-link" > 
+							<h2><Link className="link" to="/table">Table</Link></h2>
+							<h2><Link className="link" to="/calculform">Calcul</Link></h2>
 						</div>
-
 					</nav>
 				</header>
 				<div className="Container">
@@ -34,7 +36,7 @@ function App() {
 					</Switch>
 				</div>
 				<footer className="App-footer">
-
+					{/* <span className="App-footer-citation">© Copyright 2021 | PRALAIN Léopold - ILLIEN Victor</span> */}
 				</footer>
 			</div>
 		</Router>

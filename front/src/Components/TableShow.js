@@ -1,37 +1,72 @@
 import React from "react";
+import './global.js';
 import '../stylesheets/TableShow.css';
 
 
-const TableShow = ({ }) => {
-	const [tables, setTables] = React.useState();
+const TableShow = () => {
+	const [tables, setTables] = React.useState({id: "1"});
+	const [result, setResult] = React.useState();
+
+	const handleChange = (e) => {
+		setTables({
+			...tables, [e.target.name]: e.target.value.trim()
+		})
+	}
 
 	React.useEffect(() => {
-		fetch("http://127.0.0.1:8000/api/tables")      
+		console.log(tables)
+	}, [tables])
+
+	React.useEffect(() => {
+		fetch(global.path+"/api/tables/show/"+tables.id)      
 			.then((response) =>response.json())      
-			.then((tables) =>setTables(tables))
-            .catch(error => console.log('error', error));		  
-	}, []);
+			.then((result) =>setResult(result))
+			.catch(error => console.log('error', error));		  
+	}, [tables]);
 
-    return(
-    	 <div id="centre">
-    <h1 id="title"> Tables de plongée </h1>
-    <br/>
-    <br/>
-        <div id="gauche_di">
-        <div id="decalage">
-                
-          <h2>Bullman </h2>
-           
-        </div>
-        </div>
-        <div class="vl"></div>
-        <div id="droite_di">
-        <h2 className="graphe"> MN90 </h2>
-        
-        </div>
+		return(
+			<div>
+                <div className="choices">
+                    <h2>Choix de la Table : </h2>
+                    <div className="radio">
+                        <label><h4>BULLMAN:</h4></label> <input type="radio" value="1" name="id" onChange={handleChange} required/>
+                        <label><h4>MN90:</h4></label> <input type="radio" value="2" name="id" onChange={handleChange} required/>
+                    </div>
+                </div>
 
-</div>
-
+                <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Profondeur</th>
+                            <th>Temps</th>
+                            <th>Palier 15</th>
+                            <th>Palier 12</th>
+                            <th>Palier 9</th>
+                            <th>Palier 6</th>
+                            <th>Palier 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {result && Object.keys(result).map((profondeur) => {
+                        return (
+                            result[profondeur].map((elt) => (
+                                <tr>
+                                    <td>{profondeur}</td>
+                                    <td>{elt.temps}</td>
+                                    <td>{elt.palier15}</td>
+                                    <td>{elt.palier12}</td>
+                                    <td>{elt.palier9}</td>
+                                    <td>{elt.palier6}</td>
+                                    <td>{elt.palier3}</td>
+                                </tr>
+                            ))
+                        );
+                    })}
+                    </tbody>
+                </table>
+                </div>
+			</div>
 	);
 };
 

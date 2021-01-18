@@ -1,16 +1,10 @@
-#centre{
-
+#centre {
 	display: flex ;	
   	flex-direction: column;
   	font-family: sans-serif;
-  
-  
-  
-
 }
 
-
-#gauche{
+#gauche {
 	margin-top: 5%;
 	position: absolute;
 	display: flex ;	
@@ -24,49 +18,40 @@
 	background-color: rgba(51,91,128,0.8);
 	border-radius: 20px;
 }
-#droite{
+#droite {
 	margin-top: 1%;
 	display: flex ;	
   	flex-direction: column;
   	justify-content: right;
   	align-items: right;
   	font-family: sans-serif;
-	
 	margin-left: 35%;
 	height: 50%;
 	width:50%;
 }
 
-#decalage{
+#decalage {
 	margin-left: 10%;
 	margin-top: 3%;
 }
-#title{
+#title {
 	text-align: center;
 	font-family: sans-serif;
-	
 }
 
-h4{
-	
+h4 {
 	margin-bottom: 0;
-}
-#gros_boutton{
-	width: 10%;
-	height: 6%
-
 }
 
 .vl {
-
 	display: flex;
 	flex:none;	
-  border-left: 5px solid white;
-  height: 600px;
-  position: absolute;
-  left: 50%;
-  margin-left: -3px;
-  top: 25%;
+  	border-left: 5px solid white;
+  	height: 600px;
+  	position: absolute;
+  	left: 50%;
+  	margin-left: -3px;
+  	top: 25%;
 }
 
 .graphe{
@@ -77,23 +62,13 @@ h4{
   	font-family: sans-serif;
   	margin-left: 70%;
   	height: 70%;
-  
-
 }
 
-h1{
+h1, h2, h4{
 	color: white;
 
 }
 
-h2{
-	color: white;
-}
-
-
-h4{
-	color: white;
-}
 
 .result{
 	display: flex ;
@@ -105,9 +80,6 @@ h4{
   	margin-top: 8%; 
   	background-color: rgba(51,91,128,0.8);
   	border-radius: 20px;
-
-  	
-  
 }
 
 .dep{
@@ -117,5 +89,10 @@ h4{
 #octopus{
 	width: 2%;
 	height: 2%;
+}
 
+.form-radio {
+	display: inline-flex;
+	align-items: flex-end;
+	justify-content: space-around;
 }

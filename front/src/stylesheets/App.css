@@ -3,36 +3,68 @@
   height: 100%;
   margin: 0;
   padding: 0;
- 
 }
 
 body {
-   background-image: url("../img/oceanMontagne.jpg");
-  background-size: cover;
+  background-image: url("../img/oceanMontagne.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #014F7D;
 }
 
 .App-logo {
-  height: 10vmin;
+  height: 9vmin;
   pointer-events: none;
+  padding: 10px;
 }
 
 .App-header {
   height: 10vmin;
   display: flex;
-  padding: 5px;
   justify-content: space-between;
   background-color: rgba(255, 255, 255, 0);
-
 }
 
-
-.App-ul > li {
-  flex: 1;
+.App-logo-title {
+  display: flex;
+  justify-content: flex-start;
 }
 
-li a {
-  text-decoration: none;
+.App-header-title {
+  text-decoration: none !important;
+  font-family: sans-serif;
+}
+
+.App-header-link{
+  display: flex;
+  justify-content: flex-end;
+  font-family: sans-serif; 
+}
+
+.App-header-link h2{
+  text-decoration: none; 
+}
+
+.link{
+  text-decoration: none !important;
+  color: white;
+  padding: 10px;
+}
+
+.App-footer {
+  width: 100%; 
+  background-color: rgba(90, 10, 10, 0);
+  display: flex;
+  justify-content: center;
+  /* position: absolute; */
+  /* bottom: 0; */
+}
+
+.App-footer-citation {
+  padding: 5px;
   text-align: center;
+  color: white;
+  font-family: sans-serif;
 }
 
 @keyframes App-logo-spin {
@@ -48,51 +80,4 @@ li a {
   .App-logo {
     animation: App-logo-spin infinite 10s linear;
   }
-}
-
-
-#root{
-  
-  background: url(../img/oceanMontagne.jpg);
-  background-repeat:no-repeat !important;
-  background-size: cover; 
-}
-
-.App-header-title {
-  text-align: center;
-  margin-right: 41%;
-  flex: none;
-  text-decoration: none !important;
-  font-family: sans-serif;
-  color: green;
-  
-
-}
-
-.table{
-  display: flex;
-  flex : none;
-  justify-content: space-between;
-  list-style: none;
-  margin: 170px;
-  margin-top: 0%;
-  font-family: sans-serif; 
-  
- 
-}
-
-.table h2{
-  text-decoration: none !important;
-  margin-left: 20%; 
-  
-}
-
-#stable{
-  display: flex;
-}
-
-
-.test{
-  text-decoration: none !important;
-  color: white;
 }

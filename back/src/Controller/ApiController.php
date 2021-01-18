@@ -44,7 +44,7 @@ class ApiController extends AbstractController
 	/**
      * @Route("/profondeur/show/{id}", name="show_profondeur")
      */
-    public function showCours($id)
+    public function showProf($id)
     {   
         $profondeur = $this->getDoctrine()
             ->getRepository(Profondeur::class)
@@ -108,21 +108,39 @@ class ApiController extends AbstractController
      * @Route("/tables/show/{id}", name="show_choix")
      */
 	public function choix($id) {
-		$tb =$this->getDoctrine()
-                    ->getRepository(Tableplongee::class)
-                    ->findTables($id);
 
-        if ($id ==0 || $id >2 ) {
+		if (!is_numeric($id) || $id == 0 || $id >2 ) {
             $data = [
                 'status' => 404,
                 'errors' => "Wrong numb for table use 1 or 2 only ( 1: Bulhman, 2:MN90) ",
                ];
             return new JsonResponse($data);
-     		}
+     	}
+
+		$tb = $this->getDoctrine()
+                    ->getRepository(Tableplongee::class)
+                    ->findTables($id);
   
+		$oldprof = 0;
+		$data = [];
+		$temp = [];
+
+
+		foreach($tb as $key => $value) {
+			if ($value['profondeur'] == $oldprof) {
+				$oldprof = array_shift($value);
+				array_push($temp, $value);
+			} else {
+				$data[$oldprof] = $temp;
+				$oldprof = array_shift($value);
+				$temp = [];
+				array_push($temp, $value);
+			}
+		}
+		unset($data[0]);
+
         $response = new Response();
-        
-        $response->setContent(json_encode($tb));
+        $response->setContent(json_encode($data));
 		$response->headers->set('Content-Type', 'application/json');
 		$response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
