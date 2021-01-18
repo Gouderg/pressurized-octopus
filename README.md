@@ -21,7 +21,7 @@ Enfin, il faut retourner dans la console mysql et taper la commande ``` source c
 #### CRUD
 
 | Nom | Path |
-|:---:|:----:|
+|---|----|
 | Login | / |
 | Homepage | /hompage |
 | TablePlonge - Show | /table/show |
@@ -43,14 +43,14 @@ Enfin, il faut retourner dans la console mysql et taper la commande ``` source c
 Utilisation avec une méthode **GET**
 
 | Nom | Path |
-|:---:|:----:|
+|---|----|
 | Récupère une table de plongée | /api/tables/{id} |
 | Calcule et renvoie des données de plongée | /api/calc |
 
 #### FRONT
 
 | Nom | Path |
-|:---:|:----:|
+|---|----|
 | Homepage | / |
 | Formulaire | /calculform |
 | Affichage des tables de plongée| /table |
