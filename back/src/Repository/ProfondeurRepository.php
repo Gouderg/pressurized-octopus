@@ -20,25 +20,7 @@ class ProfondeurRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Profondeur::class);
     }
-    // public function findApiAll()
-    // {
-    //     return $this->createQueryBuilder('c')
-    //         ->getQuery()
-    //         ->getResult(Query::HYDRATE_ARRAY)
-    //     ;
-    // }
 
-    // public function findApiId ($value): ?Profondeur
-    // {
-    //     return $this->createQueryBuilder('p')
-    //         ->andWhere('p.id = :val')
-    //         ->setParameter('val', $value)
-    //         ->getQuery()
-    //         ->getOneOrNullResult()
-    //     ;
-    // }
-
-    // SELECT t.id FROM temps t JOIN profondeur p ON p.id = t.est_a_id WHERE t.id = 1;
     public function findIdTemps($id)
     {
         $query = $this->createQueryBuilder('p');
@@ -64,7 +46,6 @@ class ProfondeurRepository extends ServiceEntityRepository
         ->setParameter('prof', $profondeur)
         ->setParameter('id', $table);
 
-        // returns an array of Product objects
         return $query->getQuery()->getResult();   
     }
 
@@ -81,7 +62,6 @@ class ProfondeurRepository extends ServiceEntityRepository
         ->setMaxResults(1)
         ->setParameter('id', $table);
 
-        // returns an array of Product objects
         return $query->getQuery()->getResult();   
     }
 
@@ -99,7 +79,6 @@ class ProfondeurRepository extends ServiceEntityRepository
         ->setParameter('id', $table)
         ->setParameter('prof', $profondeur);
 
-        // returns an array of Product objects
         return $query->getQuery()->getResult();   
     }
 }

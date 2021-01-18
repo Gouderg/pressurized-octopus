@@ -1,17 +1,24 @@
 .choices {
-	display: inline-flex;
-	align-items: flex-end;
+	display: flex;
 	font-family: sans-serif;
+	align-items: baseline;
+	width: 50%;
+	justify-content: space-between;
 }
 
 .radio {
 	display: inline-flex;
 	align-items: flex-end;
+	justify-content: space-between;
 }
 
+.table {
+	display: flex;
+	justify-content: center;
+}
 
 .table-result {
-	width: 100%;
+	width: 80%;
 	margin-top: 20px;
 	font-family: sans-serif;
 }
@@ -41,3 +48,7 @@
 	background: rgba(51,91,128,0.8);
 }
 
+.profondeur {
+	color: yellow;
+	font-weight: bold;
+}

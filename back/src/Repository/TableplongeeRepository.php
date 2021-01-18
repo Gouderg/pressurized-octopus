@@ -26,7 +26,6 @@ class TableplongeeRepository extends ServiceEntityRepository
 
     public function findTables($id)
     {
-
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQueryBuilder();
@@ -41,77 +40,6 @@ class TableplongeeRepository extends ServiceEntityRepository
 
     }
 
-    // public function findTime($duree_pg,$profondeur, $tables)
-    // {
-
-    //     $entityManager = $this->getEntityManager();
-
-    //     $query = $entityManager->createQueryBuilder();
-    //     $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
-    //     ->from('App\Entity\Temps', 't')
-    //     ->join('App\Entity\Profondeur', 'p','WITH','t.estA = p.id')
-    //     ->where('t.temps >= :temps AND p.profondeur = :prof AND p.correspond = :id')
-    //     ->setMaxResults(1)
-    //     ->setParameter('temps', $duree_pg)
-    //     ->setParameter('prof', $profondeur)
-    //     ->setParameter('id', $tables);
-
-    //     // returns an array of Product objects
-    //     return $query->getQuery()->getResult();   
-    // }
-
-
-    // public function findTime_error($duree_pg,$profondeur, $tables)
-    // {
-    //     $entityManager = $this->getEntityManager();
-
-    //     $query = $entityManager->createQueryBuilder();
-    //     $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
-    //     ->from('App\Entity\Temps', 't')
-    //     ->join('App\Entity\Profondeur', 'p','WITH','t.estA = p.id')
-    //     ->where('t.temps <= :temps AND p.profondeur = :prof AND p.correspond = :id')
-    //     ->orderBy('t.temps' ,'desc')
-    //     ->setMaxResults(1)
-    //     ->setParameter('temps', $duree_pg)
-    //     ->setParameter('prof', $profondeur)
-    //     ->setParameter('id', $tables);
-
-    //     // returns an array of Product objects
-    //     return $query->getQuery()->getResult();   
-    // }
-
-
-
-
-
-    // /**
-    //  * @return Tableplongee[] Returns an array of Tableplongee objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Tableplongee
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')temps.palier15, temps.palier9, t
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
     public function findIdProfondeur($id) {
         $query = $this->createQueryBuilder('tp');
         $query->select('p.id')

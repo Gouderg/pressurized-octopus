@@ -34,8 +34,6 @@ class TempsRepository extends ServiceEntityRepository
         ->setParameter('prof', $profondeur)
         ->setParameter('temps', $temps);
 
-
-        // returns an array of Product objects
         return $query->getQuery()->getResult();   
     }
 
@@ -53,8 +51,6 @@ class TempsRepository extends ServiceEntityRepository
         ->setParameter('id', $table)
         ->setParameter('prof', $profondeur);
 
-
-        // returns an array of Product objects
         return $query->getQuery()->getResult();   
     }
 
@@ -73,7 +69,6 @@ class TempsRepository extends ServiceEntityRepository
         ->setParameter('prof', $profondeur)
         ->setParameter('temps', $temps);
 
-        // returns an array of Product objects
         return $query->getQuery()->getResult();   
     }
 }
