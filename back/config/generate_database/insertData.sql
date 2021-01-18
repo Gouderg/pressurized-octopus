@@ -2,8 +2,8 @@ USE octopus;
 
 
 #user to log
-
 INSERT INTO user (username, roles, password) VALUES ("admin",'["ROLE_USER"]',"$argon2i$v=19$m=16,t=2,p=1$MEZTOGJDMmNQM2VEOHNUVQ$syuI5YGrVZC84oE8uThZWg");
+
 #table_plongee (nom)
 INSERT INTO tableplongee (nom) VALUES ("Bullman"),
 ("MN90");
