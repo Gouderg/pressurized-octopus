@@ -21,6 +21,7 @@ class ProfondeurRepository extends ServiceEntityRepository
         parent::__construct($registry, Profondeur::class);
     }
 
+    // Récupère l'id d'un temps en fonction de la profondeur
     public function findIdTemps($id)
     {
         $query = $this->createQueryBuilder('p');
@@ -33,6 +34,7 @@ class ProfondeurRepository extends ServiceEntityRepository
 
     }
 
+    // Récupère la profondeur directement supérieur à celle choisie
     public function dbRequestNextSupProf($table, $profondeur)
     {
 
@@ -49,6 +51,7 @@ class ProfondeurRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();   
     }
 
+    // Récupère la dernière profondeur de la table
     public function dbRequestLastProf($table)
     {
 
@@ -65,6 +68,7 @@ class ProfondeurRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();   
     }
 
+    // Récupère la profondeur directement inférieure
     public function dbRequestBeforeProf($table, $profondeur)
     {
 

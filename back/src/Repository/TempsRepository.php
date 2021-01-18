@@ -20,6 +20,7 @@ class TempsRepository extends ServiceEntityRepository
         parent::__construct($registry, Temps::class);
     }
 
+    // Récupère le temps directement supérieur
     public function dbRequestNextSupTemps($table, $profondeur, $temps)
     {
         $entityManager = $this->getEntityManager();
@@ -37,6 +38,7 @@ class TempsRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();   
     }
 
+    // Récupère le dernier temps de la profondeur indiquée
     public function dbRequestLastTemps($table, $profondeur)
     {
         $entityManager = $this->getEntityManager();
@@ -54,6 +56,7 @@ class TempsRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();   
     }
 
+    // Récupère le dernier temps directement inférieur
     public function dbRequestBeforeTemps($table, $profondeur, $temps)
     {
         $entityManager = $this->getEntityManager();

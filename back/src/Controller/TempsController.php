@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use App\Entity\Temps;
-
 use App\Form\TempsType;
 
 /**

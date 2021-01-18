@@ -23,7 +23,8 @@ class TableplongeeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Tableplongee::class);
     }
-
+    
+    // Récupère les paliers et les profondeurs nécessaires à une table de plongée
     public function findTables($id)
     {
         $entityManager = $this->getEntityManager();
@@ -40,6 +41,7 @@ class TableplongeeRepository extends ServiceEntityRepository
 
     }
 
+    // Récupère les profondeurs correspondant à la table de plongée choisie
     public function findIdProfondeur($id) {
         $query = $this->createQueryBuilder('tp');
         $query->select('p.id')

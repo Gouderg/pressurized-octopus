@@ -92,6 +92,7 @@ const CalculForm = () => {
                     {result &&
                         <div className="result"> 
                             <div className="dep">
+                                <h2>Durée au fond: <span className="result_color"> {result.temps_init} min</span></h2>
                                 <h2>Durée de la remontée: <span className="result_color"> {result.dtr} min </span> </h2>
                                 <h2>Durée totale de la plongée: <span className="result_color">{result.dtp} min </span> </h2>
                                 <h2>Avant remontée: <span className="result_color">{result.vbAvantRemonte} L </span> à <span className="result_color">{result.pbAvantRemonte} bar</span></h2>

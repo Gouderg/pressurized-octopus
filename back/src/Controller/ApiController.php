@@ -29,6 +29,7 @@ class ApiController extends AbstractController
      */
 	public function choix($id) {
 
+		// On vérifie si la valeur passée en paramètre est valide
 		if (!is_numeric($id) || $id == 0 || $id >2 ) {
             $data = [
                 'status' => 404,
@@ -37,10 +38,12 @@ class ApiController extends AbstractController
             return new JsonResponse($data);
      	}
 
+		// On récupère le contenu de la table souhaitée
 		$tb = $this->getDoctrine()
                     ->getRepository(Tableplongee::class)
                     ->findTables($id);
-  
+		
+		// On parse la donnée pour l'affichage
 		$oldprof = 0;
 		$data = [];
 		$temp = [];
@@ -92,18 +95,17 @@ class ApiController extends AbstractController
 			}
 		}
 
-		// var_dump($api);
-
-		# Zone de saisie utilisateur
+		// Zone de saisie utilisateur
 		$table_plonge = $api["tableplonge"];
 		$pression_bouteille = $api["pressionbout"];
 		$volume_bouteille = $api["volumebout"];
 		$profondeur = $api["profondeur"];
 		$duree_plongee = $api["temps"];
 
-		# Constante
+		// Constante
 		$vitesse_descente = 1/3;
 
+		// On regarde si la profondeur existe dans la table de plongée et ainsi que le temps
 		$tempProfondeur = $this->getDoctrine()->getRepository(Profondeur::class)->dbRequestNextSupProf($table_plonge, $profondeur);
 		
 		if (empty($tempProfondeur)) {
@@ -121,6 +123,7 @@ class ApiController extends AbstractController
 			$palier = $tempPalier[0];
 		}
 
+		// Tant que notre fonction ne nous renvoie pas un résultat de plongée réalisable on diminue les paramètres
 		while (1) {
 			$data = $this->calcul_plongee($profondeur, $duree_plongee, $pression_bouteille, $volume_bouteille, $palier);
 			if (empty($data)) {
@@ -149,6 +152,7 @@ class ApiController extends AbstractController
 		}
 		$data["palier"] = $palier;
 		$data["profondeur"] = $profondeur;
+		$data["temps_init"] = $palier['temps'];
 
 		$response = new Response();
         
@@ -240,6 +244,7 @@ class ApiController extends AbstractController
 		}
 	}
 
+	// Calcul à chaque seconde la quantité d'air et la pression
 	public function forwardConsommation($duree, $respiration_moyenne, $evo, $bar, $contenance_bouteille) {
 		for ($i = 0; $i < $duree; $i++) {
 			$contenance_bouteille -= $respiration_moyenne*$bar;

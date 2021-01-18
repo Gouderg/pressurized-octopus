@@ -7,16 +7,14 @@ const TableShow = () => {
 	const [tables, setTables] = React.useState({id: "1"});
 	const [result, setResult] = React.useState();
 
+    // À chaque changement de valeur, on la récupère 
 	const handleChange = (e) => {
 		setTables({
 			...tables, [e.target.name]: e.target.value.trim()
 		})
 	}
 
-	React.useEffect(() => {
-		console.log(tables)
-	}, [tables])
-
+    // À chaque fois que tables change, on effectue la requête
 	React.useEffect(() => {
 		fetch(global.path+"/api/tables/show/"+tables.id)      
 			.then((response) =>response.json())      
