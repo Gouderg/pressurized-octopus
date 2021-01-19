@@ -1,4 +1,9 @@
 <?php
+/*
+ * Permet l'authetification de l'utilisateur
+ * @author PRALAIN Léopold
+ * 
+*/
 
 namespace App\Controller;
 
