@@ -49,8 +49,9 @@ class Temps
 
     /**
      * @ORM\ManyToOne(targetEntity=Profondeur::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $estA;
+    private $esta;
 
     public function getId(): ?int
     {
@@ -129,14 +130,14 @@ class Temps
         return $this;
     }
 
-    public function getEstA(): ?Profondeur
+    public function getEsta(): ?Profondeur
     {
-        return $this->estA;
+        return $this->esta;
     }
 
-    public function setEstA(?Profondeur $estA): self
+    public function setEsta(?Profondeur $esta): self
     {
-        $this->estA = $estA;
+        $this->esta = $esta;
 
         return $this;
     }

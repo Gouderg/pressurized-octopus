@@ -8,7 +8,7 @@ INSERT INTO user (username, roles, password) VALUES ("admin",'["ROLE_USER"]',"$a
 INSERT INTO tableplongee (nom) VALUES ("Bullman"),
 ("MN90");
 
-#Profondeur (profondeur,id_table_plongee)
+#Profondeur (profondeur,correspond_id)
 INSERT INTO profondeur (profondeur,correspond_id) VALUES (12,1),
 (15,1),
 (18,1),
@@ -49,8 +49,8 @@ INSERT INTO profondeur (profondeur,correspond_id) VALUES (12,1),
 (58,2),
 (60,2);
 
-#Temps (id_Profondeur,temps,palier15,palier12,palier9,palier6,palier3)
-INSERT INTO temps (est_a_id,temps,palier15,palier12,palier9,palier6,palier3) VALUES (1,125,0,0,0,0,1),
+#Temps (esta_id,temps,palier15,palier12,palier9,palier6,palier3)
+INSERT INTO temps (esta_id,temps,palier15,palier12,palier9,palier6,palier3) VALUES (1,125,0,0,0,0,1),
 (2,75,0,0,0,0,1),
 (2,90,0,0,0,0,7),
 (3,51,0,0,0,0,1),

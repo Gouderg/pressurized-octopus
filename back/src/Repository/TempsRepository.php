@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Temps;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\Query;
 
 /**
  * @method Temps|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,7 +27,7 @@ class TempsRepository extends ServiceEntityRepository
         $query = $entityManager->createQueryBuilder();
         $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
         ->from('App\Entity\Temps', 't')
-        ->join('App\Entity\Profondeur', 'p','WITH','t.estA = p.id')
+        ->join('App\Entity\Profondeur', 'p','WITH','t.esta = p.id')
         ->where('p.correspond = :id AND p.profondeur = :prof AND t.temps >= :temps')
         ->setMaxResults(1)
         ->setParameter('id', $table)
@@ -46,7 +45,7 @@ class TempsRepository extends ServiceEntityRepository
         $query = $entityManager->createQueryBuilder();
         $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
         ->from('App\Entity\Temps', 't')
-        ->join('App\Entity\Profondeur', 'p','WITH','t.estA = p.id')
+        ->join('App\Entity\Profondeur', 'p','WITH','t.esta = p.id')
         ->where('p.correspond = :id AND p.profondeur = :prof')
         ->orderBy('t.temps', 'desc')
         ->setMaxResults(1)
@@ -64,7 +63,7 @@ class TempsRepository extends ServiceEntityRepository
         $query = $entityManager->createQueryBuilder();
         $query->select('t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
         ->from('App\Entity\Temps', 't')
-        ->join('App\Entity\Profondeur', 'p','WITH','t.estA = p.id')
+        ->join('App\Entity\Profondeur', 'p','WITH','t.esta = p.id')
         ->where('p.correspond = :id AND p.profondeur = :prof AND t.temps < :temps')
         ->orderBy('t.temps', 'desc')
         ->setMaxResults(1)

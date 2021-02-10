@@ -22,7 +22,7 @@ class TempsType extends AbstractType
             ->add('palier9', NumberType::class,['attr' => ['value' => 0,],])
             ->add('palier6', NumberType::class,['attr' => ['value' => 0,],])
             ->add('palier3', NumberType::class,['attr' => ['value' => 0,],])
-            ->add('estA', EntityType::Class, [
+            ->add('esta', EntityType::Class, [
                 'class' => Profondeur::Class,
                 'choice_label' => function ($profondeur) {
                     return $profondeur->getProfondeur();

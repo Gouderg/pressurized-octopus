@@ -32,7 +32,7 @@ class TableplongeeRepository extends ServiceEntityRepository
         $query = $entityManager->createQueryBuilder();
         $query->select('p.profondeur, t.temps, t.palier15, t.palier12, t.palier9, t.palier6, t.palier3')
         ->from('App\Entity\Profondeur', 'p')
-        ->join('App\Entity\Temps', 't','WITH','t.estA = p.id')
+        ->join('App\Entity\Temps', 't','WITH','t.esta = p.id')
         ->where('p.correspond = :id')
         ->setParameter('id', $id);
 

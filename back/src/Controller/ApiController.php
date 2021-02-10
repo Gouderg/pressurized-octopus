@@ -1,5 +1,9 @@
 <?php
-
+/*
+ * Contient tous les requêtes qui communiquent avec le front
+ * @author PRALAIN Léopold - ILLIEN Victor
+ * 
+*/
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

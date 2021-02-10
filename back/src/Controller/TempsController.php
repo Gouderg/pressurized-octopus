@@ -75,7 +75,7 @@ class TempsController extends AbstractController
             $oneTemps->setPalier9($tempsFormData->getPalier9());
             $oneTemps->setPalier6($tempsFormData->getPalier6());
             $oneTemps->setPalier3($tempsFormData->getPalier3());
-            $oneTemps->setEstA($tempsFormData->getEstA());
+            $oneTemps->setEstA($tempsFormData->getEsta());
 
             
             # On rafraichit la base de données
@@ -114,7 +114,7 @@ class TempsController extends AbstractController
             $oneTemps->setPalier9($tempsFormData->getPalier9());
             $oneTemps->setPalier6($tempsFormData->getPalier6());
             $oneTemps->setPalier3($tempsFormData->getPalier3());
-            $oneTemps->setEstA($tempsFormData->getEstA());
+            $oneTemps->setEstA($tempsFormData->getEsta());
 
             
             # On rafraichit la base de données
